@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import UserDataService from "../services/user.service";
 import { withRouter } from '../common/router';
 
 class User extends Component {
   constructor(props) {
     super(props);
+
     this.onChangeUsername = this.onChangeUsername.bind(this);
     this.onChangePassword = this.onChangePassword.bind(this);
     this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -28,7 +29,7 @@ class User extends Component {
         canEditCourse: "",
         published: false
       },
-      message: ""
+      message: "",
     };
   }
 
@@ -64,8 +65,8 @@ class User extends Component {
     const email = e.target.value;
     
     this.setState(prevState => ({
-      currentEmail: {
-        ...prevState.currentEmail,
+      currentUser: {
+        ...prevState.currentUser,
         email: email
       }
     }));
@@ -75,8 +76,8 @@ class User extends Component {
     const telephone = e.target.value;
     
     this.setState(prevState => ({
-      currentTelephone: {
-        ...prevState.currentTelephone,
+      currentUser: {
+        ...prevState.currentUser,
         telephone: telephone
       }
     }));
@@ -86,8 +87,8 @@ class User extends Component {
     const canEditModule = e.target.value;
     
     this.setState(prevState => ({
-      currentCanEditModule: {
-        ...prevState.currentCanEditModule,
+      currentUser: {
+        ...prevState.currentUser,
         canEditModule: canEditModule
       }
     }));
@@ -97,8 +98,8 @@ class User extends Component {
     const canEditCourse = e.target.value;
     
     this.setState(prevState => ({
-      currentCanEditCourse: {
-        ...prevState.currentCanEditCourse,
+      currentUser: {
+        ...prevState.currentUser,
         canEditCourse: canEditCourse
       }
     }));
@@ -188,6 +189,7 @@ class User extends Component {
                 <label htmlFor="username">Username</label>
                 <input
                   type="text"
+                  disabled={true}
                   className="form-control"
                   id="username"
                   value={currentUser.username}
@@ -197,7 +199,7 @@ class User extends Component {
               <div className="form-group">
                 <label htmlFor="password">Password</label>
                 <input
-                  type="text"
+                  type="password"
                   className="form-control"
                   id="password"
                   value={currentUser.password}
@@ -207,7 +209,7 @@ class User extends Component {
               <div className="form-group">
                 <label htmlFor="email">Email</label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   id="email"
                   value={currentUser.email}
@@ -227,9 +229,10 @@ class User extends Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="canEditModule">can edit Module?</label>
+                <label htmlFor="canEditModule">Can Edit Module?</label>
                 <input
-                  type="checkbox" checked="checked"
+                  type="text"
+                  disabled={true}
                   className="form-control"
                   id="module"
                   value={currentUser.canEditModule}
@@ -238,9 +241,10 @@ class User extends Component {
               </div>
 
               <div className="form-group">
-                <label htmlFor="canEditCourse">can edit Course?</label>
+                <label htmlFor="canEditCourse">Can Edit Course?</label>
                 <input
-                  type="checkbox" 
+                  type="text" 
+                  disabled={true}
                   className="form-control"
                   id="course"
                   value={currentUser.canEditCourse}
@@ -250,9 +254,9 @@ class User extends Component {
 
               <div className="form-group">
                 <label>
-                  <strong>Status:</strong>
+                  <strong>Status: </strong>
                 </label>
-                {currentUser.published ? "Published" : "Pending"}
+                {currentUser.published ? " Published" : " Pending"}
               </div>
             </form>
 

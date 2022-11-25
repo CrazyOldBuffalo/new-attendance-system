@@ -74,7 +74,7 @@ class UsersList extends Component {
       }
 
     searchUsername() {
-        axios.get("http://localhost:3000/user/" + this.state.searchUsername)
+        axios.get("http://localhost:3000/user/find/" + this.state.searchUsername)
           .then(response => {
             this.setState({
               users: response.data
@@ -169,14 +169,14 @@ class UsersList extends Component {
                 <label>
                   <strong>can edit Module? :</strong>
                 </label>{" "}
-                {currentUser.canEditModule}
+                {currentUser.canEditModule.toString()}
               </div>
 
               <div>
                 <label>
                   <strong>can edit Course?:</strong>
                 </label>{" "}
-                {currentUser.canEditCourse}
+                {currentUser.canEditCourse.toString()}
               </div>
 
               <Link
