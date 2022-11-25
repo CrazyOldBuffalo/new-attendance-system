@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserDataService from "../services/user.service";
 import { withRouter } from '../common/router';
+import axios from 'axios';
 
 class User extends Component {
   constructor(props) {
@@ -19,14 +20,12 @@ class User extends Component {
 
     this.state = {
       currentUser: {
-        id: null,
         username: "",
         password: "",
         email: "",
         telephone: "",
         canEditModule: "",
         canEditCourse: "",
-        published: false
       },
       message: ""
     };
@@ -53,8 +52,8 @@ class User extends Component {
     const password = e.target.value;
     
     this.setState(prevState => ({
-      currentPassword: {
-        ...prevState.currentPassword,
+      currentUser: {
+        ...prevState.currentUser,
         password: password
       }
     }));
@@ -64,7 +63,7 @@ class User extends Component {
     const email = e.target.value;
     
     this.setState(prevState => ({
-      currentEmail: {
+      currentUser: {
         ...prevState.currentEmail,
         email: email
       }
@@ -75,7 +74,7 @@ class User extends Component {
     const telephone = e.target.value;
     
     this.setState(prevState => ({
-      currentTelephone: {
+      currentUser: {
         ...prevState.currentTelephone,
         telephone: telephone
       }
@@ -86,7 +85,7 @@ class User extends Component {
     const canEditModule = e.target.value;
     
     this.setState(prevState => ({
-      currentCanEditModule: {
+      currentUser: {
         ...prevState.currentCanEditModule,
         canEditModule: canEditModule
       }
@@ -105,7 +104,7 @@ class User extends Component {
   }
 
   getUser(id) {
-    UserDataService.get(id)
+    axios.get("http://localhost:3000/user/"+ id)
       .then(response => {
         this.setState({
           currentUser: response.data
@@ -123,16 +122,15 @@ class User extends Component {
   
   onChangeUpdatePublished(status) {
     var data = {
-      id: this.state.currentUser.id,
+      username: this.state.currentUser.username,
       password: this.state.currentUser.password,
       email: this.state.currentUser.email,
       telephone: this.state.currentUser.telephone,
       canEditModule: this.state.currentUser.canEditModule,
       canEditCourse: this.state.currentUser.canEditCourse,
-      published: status
     };
 
-    UserDataService.update(this.state.currentUser.id, data)
+    UserDataService.update(this.state.currentUser.username, data)
       .then(response => {
         this.setState(prevState => ({
           currentUser: {
@@ -149,27 +147,19 @@ class User extends Component {
   
 
   updateUser() {
-    UserDataService.update(
-      this.state.currentUser.id,
-      this.state.currentUser
-    )
-      .then(response => {
-        console.log(response.data);
-        this.setState({
-          message: "The User was updated successfully!"
-        });
-      })
-      .catch(e => {
-        console.log(e);
-      });
+    axios.put("http://localhost:3000/user/Update/" + this.state.currentUser.username, this.state.currentUser).then(response => {
+      console.log(response.data);
+      this.setState({message: "User updated"});
+    }).catch(e => {
+      console.log(e);
+    })
   }
 
   deleteUser() {    
-    UserDataService.delete(this.state.currentUser.id)
-      .then(response => {
-        console.log(response.data);
-        this.props.router.navigate('/users');
-      })
+    axios.delete("http://localhost:3000/user/Delete/" + this.state.currentUser.username).then(response => {
+      console.log(response.data);
+      this.props.router.navigate('/users');
+    })
       .catch(e => {
         console.log(e);
       });

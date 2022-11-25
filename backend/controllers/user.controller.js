@@ -8,6 +8,7 @@ const User = db.users;
 
 exports.createUser = (req, res) => {
   const user = new User({
+    id: null,
     username: req.body.username,
     password: req.body.password,
     email: req.body.email,
@@ -22,7 +23,6 @@ exports.createUser = (req, res) => {
     }).catch(err => errors.error500(err, res));
 };
 
-// Retrieve all Tutorials from the database.
 exports.findOneUser = (req, res) => {
   const findUser = req.params.id;
   User.findOne({ username: findUser }).then(data => {
@@ -48,7 +48,7 @@ exports.findAllUsers = (req, res) => {
 
 exports.updateUser = (req, res, next) => {
   if (!req.body) { return err => errors.error400(err, res) };
-  const username = req.params.id;
+  const username = req.body.username;
   if (!User.findOne({ username: username })) { return res.status(404).send({ message: "User is not found" }) };
 
   User.findOneAndUpdate({ username: username }, req.body)
@@ -59,7 +59,7 @@ exports.updateUser = (req, res, next) => {
 exports.deleteOneUser = (req, res, next) => {
   if (!User.findOne({ username: req.params.id })) { return err => errors.error500(err, res); };
 
-  User.findOneAndDelete({ username: username }).then(res.send({ message: "User Deleted" }));
+  User.findOneAndDelete({ username: req.params.id }).then(res.send({ message: "User Deleted" }));
 };
 
 exports.ExtendsUserDelete = (val, res) => {
