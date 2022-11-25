@@ -34,6 +34,22 @@ exports.findOneUser = (req, res) => {
 };
 
 // Find a single Tutorial with an id
+exports.findUsers = (req, res) => {
+
+  const findUser = req.params.id;
+  const reg = new RegExp(findUser,'i');
+
+  User.find({username: {$regex: reg}}).then(data => {
+    res.send(data);
+  })
+  .catch(err => {
+    res.status(500).send({
+      message:
+        err.message || "Some error occurred while retrieving Animals."
+    });
+  });
+};
+
 exports.findAllUsers = (req, res) => {
   User.find().then(data => {
     res.send(data);

@@ -74,7 +74,7 @@ class UsersList extends Component {
       }
 
     searchUsername() {
-        axios.get("http://localhost:3000/user/" + this.state.searchUsername)
+        axios.get("http://localhost:3000/user/find/" + this.state.searchUsername)
           .then(response => {
             this.setState({
               users: response.data
