@@ -169,14 +169,14 @@ class UsersList extends Component {
                 <label>
                   <strong>can edit Module? :</strong>
                 </label>{" "}
-                {currentUser.canEditModule}
+                {currentUser.canEditModule.toString()}
               </div>
 
               <div>
                 <label>
                   <strong>can edit Course?:</strong>
                 </label>{" "}
-                {currentUser.canEditCourse}
+                {currentUser.canEditCourse.toString()}
               </div>
 
               <Link
