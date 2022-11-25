@@ -19,7 +19,7 @@ module.exports = app => {
     // Another get command on endpoint /User/All to return all items in the db
     router.post("/user/create", userController.createUser);
     router.get("/user/", userController.findAllUsers); 
-    router.get("/user/id", userController.findOneUser);
+    router.get("/user/:id", userController.findOneUser);
     router.put("/user/Update/:id", userController.updateUser);
     router.delete("/user/Delete/:id", userController.deleteOneUser);
 

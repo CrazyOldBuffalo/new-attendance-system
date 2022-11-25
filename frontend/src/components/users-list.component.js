@@ -7,7 +7,7 @@ class UsersList extends Component {
     constructor(props) {
         super(props);
 
-        this.onChangeSearchUser = this.onChangeSearchUser.bind(this);
+        this.onChangeSearchUsername = this.onChangeSearchUsername.bind(this);
         this.retrieveUsers = this.retrieveUsers.bind(this);
         this.refreshList = this.refreshList.bind(this);
         this.setActiveUser = this.setActiveUser.bind(this);
@@ -18,7 +18,7 @@ class UsersList extends Component {
             users: [],
             currentUser: null,
             currentIndex: -1,
-            searchUser: ""
+            searchUsername: ""
         };
     }
 
@@ -26,11 +26,11 @@ class UsersList extends Component {
         this.retrieveUsers();
     }
 
-    onChangeSearchUser(e) {
-        const searchUser = e.target.value;
+    onChangeSearchUsername(e) {
+        const searchUsername = e.target.value;
 
         this.setState({
-            searchUser: searchUser
+            searchUsername: searchUsername
         });
     }
 
@@ -74,7 +74,7 @@ class UsersList extends Component {
       }
 
     searchUsername() {
-        axios.get("http://localhost:3000/user/" + this.state.searchUser)
+        axios.get("http://localhost:3000/user/" + this.state.searchUsername)
           .then(response => {
             this.setState({
               users: response.data
