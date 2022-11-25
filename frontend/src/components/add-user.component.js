@@ -70,6 +70,7 @@ class AddUser extends Component {
       email: this.state.email,
       telephone: this.state.telephone,
     };
+
       axios({
         method: "post", url: "http://localhost:3000/user/create", data: 
         {

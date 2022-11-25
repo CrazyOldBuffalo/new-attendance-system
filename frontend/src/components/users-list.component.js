@@ -180,7 +180,7 @@ class UsersList extends Component {
               </div>
 
               <Link
-                to={"/users/" + currentUser.username}
+                to={"/users/" + currentUser.id}
                 className="badge badge-warning"
               >
                 Edit
