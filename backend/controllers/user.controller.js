@@ -64,7 +64,7 @@ exports.findAllUsers = (req, res) => {
 
 exports.updateUser = (req, res, next) => {
   if (!req.body) { return err => errors.error400(err, res) };
-  const username = req.params.id;
+  const username = req.body.username;
   if (!User.findOne({ username: username })) { return res.status(404).send({ message: "User is not found" }) };
 
   User.findOneAndUpdate({ username: username }, req.body)
@@ -73,9 +73,9 @@ exports.updateUser = (req, res, next) => {
 };
 
 exports.deleteOneUser = (req, res, next) => {
-  if (!User.findOne({ username: req.params.id })) { return err => errors.error500(err, res); };
+  if (!User.findOne({ username: req.body.id })) { return err => errors.error500(err, res); };
 
-  User.findOneAndDelete({ username: username }).then(res.send({ message: "User Deleted" }));
+  User.findOneAndDelete({ username: req.params.id }).then(res.send({ message: "User Deleted" }));
 };
 
 exports.ExtendsUserDelete = (val, res) => {

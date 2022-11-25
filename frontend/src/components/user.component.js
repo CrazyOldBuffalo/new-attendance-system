@@ -1,6 +1,7 @@
 import React, { Component, useState } from 'react';
 import UserDataService from "../services/user.service";
 import { withRouter } from '../common/router';
+import axios from 'axios';
 
 class User extends Component {
   constructor(props) {
@@ -27,7 +28,6 @@ class User extends Component {
         telephone: "",
         canEditModule: "",
         canEditCourse: "",
-        published: false
       },
       message: "",
     };
@@ -54,7 +54,7 @@ class User extends Component {
     const password = e.target.value;
     
     this.setState(prevState => ({
-      currentPassword: {
+      currentUser: {
         ...prevState.currentPassword,
         password: password
       }
@@ -106,7 +106,7 @@ class User extends Component {
   }
 
   getUser(id) {
-    UserDataService.get(id)
+    axios.get("http://localhost:3000/user/" + id)
       .then(response => {
         this.setState({
           currentUser: response.data
@@ -150,10 +150,7 @@ class User extends Component {
   
 
   updateUser() {
-    UserDataService.update(
-      this.state.currentUser.id,
-      this.state.currentUser
-    )
+    axios.put("http://localhost:3000/user/Update/" + this.state.currentUser.username, this.state.currentUser)
       .then(response => {
         console.log(response.data);
         this.setState({
@@ -166,7 +163,7 @@ class User extends Component {
   }
 
   deleteUser() {    
-    UserDataService.delete(this.state.currentUser.id)
+    axios.delete("http://localhost:3000/user/Delete/" + this.state.currentUser.username)
       .then(response => {
         console.log(response.data);
         this.props.router.navigate('/users');
