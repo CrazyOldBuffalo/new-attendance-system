@@ -17,9 +17,10 @@ exports.createRegister = (req, res) => {
     return register;
 };
 
-exports.findRegister = async (req, res) => {
-    const registertest = await Register.findById(req.register._id);
-    return registertest;
+exports.findRegister = (req, res) => {
+    const parsedDatetime = req.params.dateTime;
+    const regexDatetime = new RegExp(parsedDatetime, "i");
+    Register.find({dateTime: {$regex: regexDatetime}}).then( data => {res.send(data);});
 };
 
 exports.getAll = (req, res) => {

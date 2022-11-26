@@ -7,5 +7,6 @@ module.exports = app => {
     router.delete("/Register/DeleteItem/:id", registerController.deleteRegisterItem);
     router.put("/Register/DeleteItem/:id", registerController.editRegisterItem);
     router.get("/Register/getAll/", registerController.getAll);
+    router.get("Register/Find/:id", registerController.findRegister);
     app.use("/", router);
 }
