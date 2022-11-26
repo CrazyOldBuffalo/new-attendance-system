@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import UserDataService from "../services/user.service";
 import { Link, NavLink } from "react-router-dom";
-import axios from 'axios';
+import axios, { Axios } from 'axios';
 
 class UsersList extends Component {
     constructor(props) {
@@ -26,18 +26,18 @@ class UsersList extends Component {
     }
 
     onChangeSearchUsername(e) {
-        const searchUsername = e.target.value;
+        const searchAdvisor = e.target.value;
 
         this.setState({
-            searchUsername: searchUsername
+            searchAdvisor: searchAdvisor
         });
     }
 
-    retrieveUsers(){
-        axios.get("http://localhost:3000/user/")
+    retriveAdvisors(){
+        axios.get("http://localhost:3000/advisor/")
         .then(response => {
             this.setState({
-                users: response.data
+                advisors: response.data
             });
             console.log(response.data);
         })
@@ -49,7 +49,7 @@ class UsersList extends Component {
     refreshList() {
         this.retrieveUsers();
         this.setState({
-            currentUser: null,
+            currentAdvisor: null,
             currentIndex: -1
         });
     }
@@ -61,19 +61,8 @@ class UsersList extends Component {
         });
     }
 
-    removeAllUsers() {
-        UserDataService.deleteAll()
-          .then(response => {
-            console.log(response.data);
-            this.refreshList();
-          })
-          .catch(e => {
-            console.log(e);
-        });
-      }
-
-    searchUsername() {
-        axios.get("http://localhost:3000/user/find/" + this.state.searchUsername)
+    searchAdvisor() {
+        axios.get("http://localhost:3000/advisor/find/" + this.state.searchUsername)
           .then(response => {
             this.setState({
               users: response.data
