@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import UserDataService from "../services/user.service";
+import advisorService from '../services/advisor.service';
 import { Link, NavLink } from "react-router-dom";
 import axios, { Axios } from 'axios';
 
-class UsersList extends Component {
+class AdvisorList extends Component {
     constructor(props) {
         super(props);
 
@@ -22,10 +22,10 @@ class UsersList extends Component {
     }
 
     componentDidMount(){
-        this.retrieveUsers();
+        this.retriveAdvisors();
     }
 
-    onChangeSearchUsername(e) {
+    onChangeSearchAdvisor(e) {
         const searchAdvisor = e.target.value;
 
         this.setState({
@@ -34,7 +34,7 @@ class UsersList extends Component {
     }
 
     retriveAdvisors(){
-        axios.get("http://localhost:3000/advisor/")
+        advisorService.getAll()
         .then(response => {
             this.setState({
                 advisors: response.data
@@ -47,25 +47,25 @@ class UsersList extends Component {
     }
 
     refreshList() {
-        this.retrieveUsers();
+        this.retriveAdvisors();
         this.setState({
             currentAdvisor: null,
             currentIndex: -1
         });
     }
 
-    setActiveUser(user, index) {
+    setActiveAdvisor(advisor, index) {
         this.setState({
-          currentUser: user,
+          cuurentAdvisor: advisor,
           currentIndex: index
         });
     }
 
     searchAdvisor() {
-        axios.get("http://localhost:3000/advisor/find/" + this.state.searchUsername)
+        advisorService.searchAdvisor(this.state.searchAdvisor)
           .then(response => {
             this.setState({
-              users: response.data
+              advisors: response.data
             });
             console.log(response.data);
           })
@@ -75,7 +75,7 @@ class UsersList extends Component {
       }
 
     render(){
-   const { searchUsername, users, currentUser, currentIndex } = this.state;
+   const { searchAdvisor, advisors, currentAdvisor, currentIndex } = this.state;
 
     return (
       <div className="list row">
@@ -85,14 +85,14 @@ class UsersList extends Component {
               type="text"
               className="form-control"
               placeholder="Search by username"
-              value={searchUsername}
-              onChange={this.onChangeSearchUsername}
+              value={searchAdvisor}
+              onChange={this.onChangeSearchAdvisor}
             />
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
                 type="button"
-                onClick={this.searchUsername}
+                onClick={this.searchAdvisor}
               >
                 Search
               </button>
@@ -100,88 +100,48 @@ class UsersList extends Component {
           </div>
         </div>
         <div className="col-md-6">
-          <h4>Users List</h4>
+          <h4>Advisor List</h4>
 
           <ul className="list-group">
-            {users &&
-              users.map((user, index) => (
+            {advisors &&
+              advisors.map((advisor, index) => (
                 <li
                   className={
                     "list-group-item " +
                     (index === currentIndex ? "active" : "")
                   }
-                  onClick={() => this.setActiveUser(user, index)}
+                  onClick={() => this.searchAdvisor(advisor, index)}
                   key={index}
                 >
-                  {user.username}
+                  {advisor.academicAdvisorID}
                 </li>
               ))}
           </ul>
 
-          <button
-            className="m-3 btn btn-sm btn-danger"
-            onClick={this.removeAllUsers}
-          >
-            Remove All
-          </button>
         </div>
         <div className="col-md-6">
-          {currentUser ? (
+          {currentAdvisor ? (
             <div>
-              <h4>User</h4>
+              <h4>Advisor</h4>
               <div>
                 <label>
-                  <strong>username:</strong>
+                  <strong>Advisor ID:</strong>
                 </label>{" "}
-                {currentUser.username}
+                {currentAdvisor.academicAdvisorID}
               </div>
               <div>
                 <label>
-                  <strong>password:</strong>
+                  <strong>Students:</strong>
                 </label>{" "}
-                {currentUser.password}
-              </div>
-              <div>
-                <label>
-                  <strong>email:</strong>
-                </label>{" "}
-                {currentUser.email}
-              </div>
-              <div>
-                <label>
-                  <strong>telephone:</strong>
-                </label>{" "}
-                {currentUser.telephone}
-              </div>
-              <div>
-                <label>
-                  <strong>can edit Module? :</strong>
-                </label>{" "}
-                {currentUser.canEditModule.toString()}
-              </div>
-
-              <div>
-                <label>
-                  <strong>can edit Course?:</strong>
-                </label>{" "}
-                {currentUser.canEditCourse.toString()}
+                {currentAdvisor.students}
               </div>
 
               <Link
-                to={"/users/" + currentUser.username}
+                to={"/advisors/" + currentAdvisor.academicAdvisorID}
                 className="badge badge-warning"
               >
                 Edit
               </Link>
-
-              
-              {/* <button
-                to={"/users/" + currentUser.id}
-                className="badge badge-warning"
-              >
-                Edit
-              </button> */}
-
             </div>
           ) : (
             <div>
@@ -195,4 +155,4 @@ class UsersList extends Component {
   }
 }
 
-export default UsersList;
+export default AdvisorList;
