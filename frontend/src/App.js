@@ -8,7 +8,7 @@ import './App.css';
 import User from './components/user.component';
 import AddUser from './components/add-user.component';
 import UsersList from './components/users-list.component';
-import Register from './components/editRegister.component';
+import Register from './components/register.component';
 import RegisterList from './components/register-list.component';
 
 
@@ -41,7 +41,7 @@ class App extends Component {
             <Route path="/users" element={<UsersList/>} />
             <Route path="/add" element={<AddUser/>} />
             <Route path="/users/:id" element={<User/>} />
-            <Route path="/editRegister" element={<Register/>} />
+            <Route path="/register/:id" element={<Register/>} />
             <Route path="/register-list" element={<RegisterList/>} />
           </Routes>
         </div>
