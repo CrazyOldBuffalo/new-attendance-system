@@ -153,7 +153,7 @@ db.mongoose.connect(db.url, {
 }).then(() => {
     console.log("Connected to DB");
 
-    //createUsers(); // populate db.
+    createUsers(); // populate db.
 }).catch(err => {
     console.log("error connecting to db");
     process.exit();
@@ -173,6 +173,9 @@ require("./routes/course.routes")(app);
 require("./routes/module.routes")(app);
 require("./routes/class.routes")(app);
 require("./routes/register.routes")(app);
+require('./routes/auth.routes')(app); 
+require('./routes/security.routes')(app);
+
 
 module.exports = app;
 

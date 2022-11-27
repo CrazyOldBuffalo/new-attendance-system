@@ -1,0 +1,68 @@
+@import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@200;400&display=swap');
+.navbar{
+    
+
+    .navbar-expand{
+        .navbar-dark{
+            .bg-dark{
+               
+            }
+        }
+
+
+    }
+        background-color: darkgreen;
+}
+
+.nav-link:hover{
+    
+    transform: scale(1.1);    
+
+}
+
+.container-sm{
+    
+        //margin-top: 20 !important;
+
+    font-family: 'Josefin Sans', sans-serif;
+      height: 90%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+
+}
+
+
+#paddingContainer{
+
+    padding-top: 40px;
+    background-color: white;
+}
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.icons{
+    transform: scale(1.5);
+    padding-left: 5px;
+}
+
+.required{
+    color:red;
+}
+.errorAlert{
+    visibility: hidden;
+}
+
+.form-group{
+
+    font-family: 'Josefin Sans', sans-serif;
+}
