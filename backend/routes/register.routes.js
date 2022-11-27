@@ -8,6 +8,7 @@ module.exports = app => {
     router.get("/Register/getAll/", registerController.getAll);
     router.get("Register/Find/:id", registerController.findRegister);
     router.put("/Register/Update/:id", registerController.editRegisterItem);
-    
+    router.get("/Register/FindOne/:id", registerController.findOneRegister);
+
     app.use("/", router);
 }

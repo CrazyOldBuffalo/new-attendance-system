@@ -19,7 +19,8 @@ class Register extends Component {
     this.state = {
       currentRegister: {
         dateTime: null,
-        attendanceList: []
+        attendanceList: [],
+        currentIndex: -1
       },
       message: "",
     };
@@ -44,7 +45,7 @@ class Register extends Component {
   }
 
   getRegister(id) {
-    axios.get("http://localhost:3000/Register/" + id)
+    axios.get("http://localhost:3000/Register/FindOne/" + id)
       .then(response => {
         this.setState({
           currentRegister: response.data
@@ -113,7 +114,7 @@ class Register extends Component {
   }
 
   render() {
-    const { currentRegister } = this.state;
+    const { currentRegister, currentIndex } = this.state;
 
     return (
       <div>
@@ -133,9 +134,30 @@ class Register extends Component {
               </div>
               {console.log(currentRegister.attendanceList)}
                <div className="form-group">
-                <p id="registeItemList">
+                <table className='table'>
+                  <thead>
+                  <tr>
+                    <th>
+                      Student
+                    </th>
+                    <th>
+                      Attended
+                    </th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {
+                    currentRegister.attendanceList.map((attendee, index) =>(
+                      <tr key={index}>
+                        <td>{attendee.students.studentID}</td>
+                        {console.log(attendee.attended)}
+                        <td>{attendee.attended.toString()}</td>
+                      </tr>
+                    ))
+                  }
 
-                </p>
+                  </tbody>
+                </table>
                 <label htmlFor="password">Password</label>
                 {/* <input
                   type="password"
@@ -144,9 +166,9 @@ class Register extends Component {
                   value={currentUser.password}
                   onChange={this.onChangePassword}
                 /> */}
-                {currentRegister.attendanceList.forEach( registerItem => {
-                  document.getElementById("registeItemList").append(registerItem);
-                })}
+                { 
+                }
+                
               </div>
               {/*
               <div className="form-group">
