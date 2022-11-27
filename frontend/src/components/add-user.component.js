@@ -37,6 +37,8 @@ class AddUser extends Component {
       telephone: "",
       canEditModule: false,
       canEditCourse: false,
+
+      message: "",
     };
   }
 
@@ -107,7 +109,7 @@ class AddUser extends Component {
             telephone: response.data.telephone,
             canEditModule: response.data.canEditModule,
             canEditCourse: response.data.canEditCourse,
-            
+            message: "The User was created successfully!"
         });
         //console.log(response.data);
         //console.log(response.status)
@@ -180,7 +182,7 @@ class AddUser extends Component {
             <div className="form-group">
                 <label htmlFor="password">Password<span className='required'>*</span></label>
                 <input
-                    type="text"
+                    type="password"
                     className="form-control"
                     id="password"
                     required
@@ -194,7 +196,7 @@ class AddUser extends Component {
             <div className="form-group">
                 <label htmlFor="email">Email<span className='required'>*</span></label>
                 <input
-                  type="text"
+                  type="email"
                   className="form-control"
                   id="email"
                   required
@@ -216,38 +218,11 @@ class AddUser extends Component {
                   name="telephone"
                 />
             </div>
-
-            <div className="form-group">
-                <label htmlFor="canEditModule">Can Edit Module? </label>
-                <input
-                  type="checkbox" checked="checked"
-                  className="form-control"
-                  id="canEditModule"
-                  required
-                  value={this.state.canEditModule}
-                  onChange={this.onChangeCanEditModule}
-                  name="canEditModule"
-                />
-            </div>
-
-            <div className="form-group">
-                <label htmlFor="canEditCourse">Can Edit Course? </label>
-                <input
-                  type="checkbox"
-                  className="form-control"
-                  id="canEditCourse"
-                  required
-                  value={this.state.canEditCourse}
-                  onChange={this.onChangeCanEditCourse}
-                  name="canEditCourse"
-                />
-            </div>
   
             <button onClick={this.saveUser} className="btn btn-success">
                 Submit
               </button>
-
-              
+              <p>{this.state.message}</p>
             </div>
           )}
 
