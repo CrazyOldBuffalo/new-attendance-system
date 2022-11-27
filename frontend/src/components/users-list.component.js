@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import UserDataService from "../services/user.service";
 import { Link, NavLink } from "react-router-dom";
 import axios from 'axios';
-
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 class UsersList extends Component {
     constructor(props) {
         super(props);
@@ -90,7 +90,24 @@ class UsersList extends Component {
    const { searchUsername, users, currentUser, currentIndex } = this.state;
 
     return (
+      
+      <div>
+           <div className='container-sm' id='paddingContainer'>
+          <h1>Search Student 
+
+
+
+          <PersonSearchIcon className="icons">
+
+          </PersonSearchIcon>
+
+
+            
+          </h1>
+        </div>
       <div className="list row">
+
+
         <div className="col-md-8">
           <div className="input-group mb-3">
             <input
@@ -202,6 +219,7 @@ class UsersList extends Component {
             </div>
           )}
         </div>
+      </div>
       </div>
     );
   }

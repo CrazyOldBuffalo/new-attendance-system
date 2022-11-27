@@ -1,8 +1,21 @@
 import axios from 'axios';
 import React, { Component } from 'react';
+import AdbOutlinedIcon from '@mui/icons-material/AdbOutlined';
 import UserDataService from "../services/user.service";
 
+
+import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
+import LoginIcon from '@mui/icons-material/Login';
+
+
 class AddUser extends Component {
+  
   constructor(props) {
     super(props);
 
@@ -66,6 +79,12 @@ class AddUser extends Component {
   }
 
   saveUser() {
+
+ 
+
+
+
+
     var data = {
       username: this.state.username,
       password: this.state.password,
@@ -92,10 +111,22 @@ class AddUser extends Component {
             canEditCourse: response.data.canEditCourse,
             message: "The User was created successfully!"
         });
-        console.log(response.data);
+        //console.log(response.data);
+        //console.log(response.status)
+        if(response.status=='200'){
+          console.log('great success')
+          document.getElementById('responseMessageSuccess').style.visibility='visible'
+          document.getElementById('responseMessageError').style.visibility='hidden'
+
+        }
+        
       })
       .catch(e => {
         console.log(e);
+        
+        console.log('boo boo')
+          document.getElementById('responseMessageSuccess').style.visibility='hidden'
+          document.getElementById('responseMessageError').style.visibility='visible'
       });
   }
 
@@ -112,8 +143,20 @@ class AddUser extends Component {
   }
 
   render() {
+
     return (
+      
+
         <div className="submit-form">
+
+          <div className='container-sm' id='paddingContainer'>
+          <h1>Add Student 
+          <PersonAddAlt1Icon className="icons">
+          </PersonAddAlt1Icon>
+          </h1>
+           </div>
+
+
           {this.state.submitted ? (
             <div>
               <h4>You submitted successfully!</h4>
@@ -124,7 +167,7 @@ class AddUser extends Component {
           ) : (
             <div>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">Username<span className='required'>*</span></label>
                 <input
                   type="text"
                   className="form-control"
@@ -137,7 +180,7 @@ class AddUser extends Component {
             </div>
   
             <div className="form-group">
-                <label htmlFor="password">Password</label>
+                <label htmlFor="password">Password<span className='required'>*</span></label>
                 <input
                     type="password"
                     className="form-control"
@@ -147,10 +190,11 @@ class AddUser extends Component {
                     onChange={this.onChangePassword}
                     name="password"
                 />
+
             </div>
 
             <div className="form-group">
-                <label htmlFor="email">Email</label>
+                <label htmlFor="email">Email<span className='required'>*</span></label>
                 <input
                   type="email"
                   className="form-control"
@@ -163,7 +207,7 @@ class AddUser extends Component {
             </div>
 
             <div className="form-group">
-                <label htmlFor="telephone">Telephone No.</label>
+                <label htmlFor="telephone">Telephone No.<span className='required'>*</span></label>
                 <input
                   type="text"
                   className="form-control"
@@ -181,7 +225,12 @@ class AddUser extends Component {
               <p>{this.state.message}</p>
             </div>
           )}
-          </div>
+
+
+           <Alert severity="error" id='responseMessageError' className='errorAlert'> Error: Please check all required fields are populated</Alert> 
+           <Alert severity="success" id='responseMessageSuccess' className='errorAlert'>User created successfully</Alert> 
+
+      </div>
     );
   }
 }
