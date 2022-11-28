@@ -12,6 +12,7 @@ import Collapse from '@mui/material/Collapse';
 import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 import LoginIcon from '@mui/icons-material/Login';
+import Navbar from './navbar.component';
 
 
 class AddUser extends Component {
@@ -145,9 +146,10 @@ class AddUser extends Component {
   render() {
 
     return (
-      
-
-        <div className="submit-form">
+        <div>
+          <Navbar/>
+          <div className="col-md-2 mx-auto" >
+        <div className="submit-form" style={{maxWidth:"600px", justifyContent:"center", padding:"50px 0px 0px"}}>
 
           <div className='container-sm' id='paddingContainer'>
           <h1>Add Student 
@@ -231,6 +233,10 @@ class AddUser extends Component {
            <Alert severity="success" id='responseMessageSuccess' className='errorAlert'>User created successfully</Alert> 
 
       </div>
+      
+      </div>
+      </div>
+      
     );
   }
 }
