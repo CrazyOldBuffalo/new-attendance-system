@@ -1,14 +1,22 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-
+import AdbOutlinedIcon from '@mui/icons-material/AdbOutlined';
+import UserDataService from "../services/user.service";
+import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
 
 
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
+import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
+import LoginIcon from '@mui/icons-material/Login';
 import Navbar from './navbar.component';
 
 
-class AddUser extends Component {
+class AddUserExternal extends Component {
   
   constructor(props) {
     super(props);
@@ -74,6 +82,11 @@ class AddUser extends Component {
 
   saveUser() {
 
+ 
+
+
+
+
     var data = {
       username: this.state.username,
       password: this.state.password,
@@ -100,10 +113,13 @@ class AddUser extends Component {
             canEditCourse: response.data.canEditCourse,
             message: "The User was created successfully!"
         });
+        //console.log(response.data);
+        //console.log(response.status)
         if(response.status=='200'){
           console.log('great success')
           document.getElementById('responseMessageSuccess').style.visibility='visible'
           document.getElementById('responseMessageError').style.visibility='hidden'
+
         }
         
       })
@@ -132,7 +148,7 @@ class AddUser extends Component {
 
     return (
         <div>
-          <Navbar/>
+         
           <div className="col-md-2 mx-auto" >
         <div className="submit-form" style={{maxWidth:"600px", justifyContent:"center", padding:"50px 0px 0px"}}>
 
@@ -205,12 +221,21 @@ class AddUser extends Component {
                   name="telephone"
                 />
             </div>
-  
-            <button onClick={this.saveUser} className="btn btn-success">
+            <div className="d-flex justify-content-between">
+
+              <button onClick={this.saveUser} className="btn btn-success" id='submitBtn'>
                 Submit
               </button>
-              <p>{this.state.message}</p>
+              <Link to={"/login"} className="navbar-brand">
+                    <button class="btn btn-outline-success"  id="logLink"role="button"> Continue To Sign In </button>
+                </Link>
+
+
             </div>
+            
+              {/* <p>{this.state.message}</p> */}
+            </div>
+            
           )}
 
 
@@ -226,4 +251,4 @@ class AddUser extends Component {
   }
 }
 
-export default AddUser;
+export default AddUserExternal;
