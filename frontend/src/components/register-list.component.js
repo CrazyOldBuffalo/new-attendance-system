@@ -164,7 +164,7 @@ class RegisterList extends Component {
               </div>
 
               <Link
-                to={"/users/" + currentRegister.dateTime}
+                to={"/register/" + currentRegister.dateTime}
                 className="badge badge-warning"
               >
                 Edit

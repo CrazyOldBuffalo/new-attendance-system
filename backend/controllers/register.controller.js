@@ -18,10 +18,15 @@ exports.createRegister = (req, res) => {
 };
 
 exports.findRegister = (req, res) => {
-    const parsedDatetime = req.params.dateTime;
+    const parsedDatetime = req.params.id;
     const regexDatetime = new RegExp(parsedDatetime, "i");
     Register.find({dateTime: {$regex: regexDatetime}}).then( data => {res.send(data);});
 };
+
+exports.findOneRegister = (req, res) => {
+    Register.findOne({dateTime: req.params.id}).populate({path: "attendanceList", model: "registerItem", populate: {path: "students", model: "student"}})
+    .then( data => {res.send(data);});
+}
 
 exports.getAll = (req, res) => {
     Register.find().then(data => {res.send(data); } ); 
