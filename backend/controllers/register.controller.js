@@ -32,48 +32,43 @@ exports.getAll = (req, res) => {
     Register.find().then(data => { res.send(data); });
 };
 
-exports.addRegisterItem = (req, res) => {
-    const classdata = classController.extendsClassFind(req, res);
-    if(!classdata) {
+exports.addRegisterItem = async(req, res) => {
+    const classdata = await classController.extendsClassFind(req, res);
+    if (!classdata) {
         errors.error404("class not found", res)
     }
-    const registerItem = registerItemController.createRegisterItem(req, res);
+    const registerItem = await registerItemController.createRegisterItem(req, res);
     Register.findByIdAndUpdate(classdata.register._id, { $push: { "attendanceList": registerItem } })
         .then(res.send("register: " + classdata.register._id + "has been updated with registerItem: " + registerItem._Id))
         .catch(err => errors.error500(err, res));
 };
 
-    exports.deleteRegisterItem = async (req, res) => {
-        const classdata = await classController.extendsClassFind(req, res);
-        const register = await Register.findById(classdata.register._id);
-        const student = await studentController.extendsStudentFind(req, res);
+exports.deleteRegisterItem = async (req, res) => {
+    const classdata = await classController.extendsClassFind(req, res);
+    const register = await Register.findById(classdata.register._id);
+    const student = await studentController.extendsStudentFind(req, res);
 
-        if (!student) { return err => errors.error404(err, res) }
+    if (!student) { return err => errors.error404(err, res) }
+    else {
+        const studentlist = await classController.searchStudents(req, res);
+        if (!studentlist) { return err => errors.error404(err, res) }
         else {
-            const studentlist = await classController.searchStudents(req, res);
-            if (!studentlist) { return err => errors.error404(err, res) }
-            else {
-                const objectid = studentlist.register.attendanceList.find(element => student);
-                registerItemController.deleteRegisterItem(objectid, res);
-                Register.findByIdAndUpdate(register._id, { $pull: { attendanceList: objectid._id } })
-                    .then(res.send({ message: "registerItem: " + objectid._id + "Deleted" }))
-                    .catch(err => errors.error500(err, res));
-            };
+            const objectid = studentlist.register.attendanceList.find(element => student);
+            registerItemController.deleteRegisterItem(objectid, res);
+            Register.findByIdAndUpdate(register._id, { $pull: { attendanceList: objectid._id } })
+                .then(res.send({ message: "registerItem: " + objectid._id + "Deleted" }))
+                .catch(err => errors.error500(err, res));
         };
     };
+};
 
-    exports.editRegisterItem = async (req, res) => {
-        const classdata = await classController.extendsClassFind(req, res);
-        const register = await Register.findById(classdata.register._id);
-        const student = await studentController.extendsStudentFind(req, res);
+exports.editRegisterItem = async (req, res) => {
+    const classdata = await classController.extendsClassFind(req, res);
+    const student = await studentController.extendsStudentFind(req, res);
+    if (!student) { return err => errors.error404(err, res) }
+    else {
+        const objectid = studentlist.register.attendanceList.find(element => student);
+        registerItemController.updateRegisterItem(objectid, req, res);
 
-        if (!student) { return err => errors.error404(err, res) }
-        else {
-            const studentlist = await classController.searchStudents(req, res);
-            if (!studentlist) { return err => errors.error404(err, res) }
-            else {
-                const objectid = studentlist.register.attendanceList.find(element => student);
-                registerItemController.updateRegisterItem(objectid, req, res);
-            };
-        };
-    }
+    };
+}
