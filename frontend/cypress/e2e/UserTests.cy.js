@@ -24,7 +24,6 @@ describe('User Tests', () => {
 
     //navigate to search student page and select created user
     cy.get('#searchStudent > .nav-link').click();
-
     cy.wait(2000);
     cy.contains('AUTOUSER').click();
     cy.get('.badge').click();
@@ -41,7 +40,7 @@ describe('User Tests', () => {
      //delete created user
      cy.get('.badge').click();
      cy.get('#deleteBtn').click();
-     
+
 
 
   })
