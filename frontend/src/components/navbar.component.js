@@ -34,7 +34,7 @@ class Navbar extends Component {
           </Link>
 
           <div className="navbar-nav mr-auto">
-            <li className="nav-item">
+            <li className="nav-item" id="searchStudent">
               <Link to={"/Users"} className="nav-link">
                 Search Student
                 <PersonSearchIcon width="30" height="30" className="icons" style={{ color: "white" }}></PersonSearchIcon>
@@ -62,7 +62,7 @@ class Navbar extends Component {
 
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" id="addUser">
               <Link to={"/add"} className="nav-link">
                 Add User
                 <PersonAddIcon width="30" height="30" className="icons" style={{ color: "white" }}></PersonAddIcon>

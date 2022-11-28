@@ -11,6 +11,7 @@ import UsersList from './components/users-list.component';
 import Register from './components/register.component';
 import RegisterList from './components/register-list.component';
 import LogIn from './components/log-in.component';
+import AddUserExternal from './components/create-user-external.component';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -33,6 +34,7 @@ class App extends Component {
       <Route path="/" element={<LogIn/>} />
 
         <Route path="/login" element={<LogIn/>} />
+        <Route path="createUser" element={<AddUserExternal/>}/>
         <Route path="/Navbar" element={<Navbar/>}/>
         <Route path="/users" element={<UsersList/>} />
         <Route path="/add" element={<AddUser/>} />

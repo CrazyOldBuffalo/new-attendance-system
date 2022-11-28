@@ -125,6 +125,7 @@ class UsersList extends Component {
             <div className="input-group-append">
               <button
                 className="btn btn-outline-secondary"
+                id='searchBtn'
                 type="button"
                 onClick={this.searchUsername}
               >

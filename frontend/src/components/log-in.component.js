@@ -146,7 +146,7 @@ class LogIn extends Component {
                 </div>
                 <div className="d-flex justify-content-between">
                 <div className="p-2" style={{paddingTop:"20px"}}>
-                    <Link to={"/add"} className="navbar-brand">
+                    <Link to={"/createUser"} className="navbar-brand" id='createAcc'>
                     <button class="btn btn-outline-success"  id="logLink"role="button"> Create Account <AddCircleOutlineIcon/></button>
                     </Link>
 
@@ -155,7 +155,7 @@ class LogIn extends Component {
                     
                       
                     
-                    <Link to={"/Navbar"} className="navbar-brand">
+                    <Link to={"/Navbar"} className="navbar-brand" id='logIn'>
                     <button class="btn btn-success"  id="logLink"role="button"> Log In <LoginIcon></LoginIcon></button>
                     </Link>
                    

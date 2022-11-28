@@ -270,6 +270,8 @@ class User extends Component {
             <button
               className="badge badge-danger mr-2"
               onClick={this.deleteUser}
+              id="deleteBtn"
+
             >
               Delete
             </button>
@@ -278,6 +280,7 @@ class User extends Component {
               type="submit"
               className="badge badge-success"
               onClick={this.updateUser}
+              id="updateBtn"
             >
               Update
             </button>
