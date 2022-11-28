@@ -4,12 +4,6 @@ import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
 //import './App.css';
 
 import '../styles/nav.scss'
-import User from '../components/user.component';
-import AddUser from '../components/add-user.component';
-import UsersList from '../components/users-list.component';
-import RegisterList from '../components/register-list.component';
-import Register from '../components/log-in.component'
-import LogIn from '../components/log-in.component';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
@@ -20,7 +14,6 @@ import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
-import { Modal } from "bootstrap";
 
 class Navbar extends Component {
   render() {
@@ -81,22 +74,22 @@ class Navbar extends Component {
 
 
 
-            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                <div class="modal-header" style={{backgroundColor:"#CD4631", color:"white"}}>
+            <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div className="modal-dialog modal-dialog-centered">
+                <div className="modal-content">
+                <div className="modal-header" style={{backgroundColor:"#CD4631", color:"white"}}>
                      <WarningAmberIcon></WarningAmberIcon>
-                    <h5 class="modal-title" id="exampleModalLabel">   Sign Out Confirmation</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <h5 className="modal-title" id="exampleModalLabel">   Sign Out Confirmation</h5>
+                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <div class="modal-body">
+                <div className="modal-body">
                     Selecting confirm will return you to the Sign In screen where you will have to re-enter your details
                 </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close<CloseIcon></CloseIcon></button>
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close<CloseIcon></CloseIcon></button>
                     <Link to={"/login"} className="nav-link">
 
-                    <button type="button" class="btn btn-primary"data-bs-dismiss="modal">Confirm<DoneIcon></DoneIcon></button>
+                    <button type="button" className="btn btn-primary"data-bs-dismiss="modal">Confirm<DoneIcon></DoneIcon></button>
                     </Link>
                 </div>
                 </div>

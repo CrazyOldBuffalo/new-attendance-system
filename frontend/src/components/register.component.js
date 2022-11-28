@@ -8,7 +8,7 @@ class Register extends Component {
   constructor(props) {
     super(props);
 
-    this.onChangeStudentStatus = this.onChangeStudentStatus.bind(this); // updates status of student alreaduy in register
+    //this.onChangeStudentStatus = this.onChangeStudentStatus.bind(this); // updates status of student alreaduy in register
 
     // this.onChangeRegisterItems = this.onChangeRegisterItems.bind(this); // adds new student to register
 
@@ -16,8 +16,10 @@ class Register extends Component {
     this.addRegisterItem = this.addRegisterItem.bind(this);
     this.updateRegisterItem = this.updateRegisterItem.bind(this);
     this.deleteRegister = this.deleteRegisterItem.bind(this);
-    this.onChangeStudentID = this.onChangeStudentID(this);
-    this.onChangeAttendanceStatus = this.onChangeAttendanceStatus(this);
+    this.onChangestudentID = this.onChangestudentID.bind(this);
+    this.onChangeattendanceStatus = this.onChangeattendanceStatus.bind(this);
+    this.onChangeClass = this.onChangeClass.bind(this);
+    this.refreshList = this.refreshList.bind(this);
 
     this.state = {
       currentRegister: {
@@ -25,7 +27,8 @@ class Register extends Component {
         attendanceList: [],
         currentIndex: -1,
         studentID: "",
-        attendanceStatus: ""
+        attendanceStatus: "",
+        class1: "",
       },
       message: "",
     };
@@ -36,17 +39,26 @@ class Register extends Component {
     console.log(this.props.router.params.id);
   }
 
-  onChangeStudentStatus(e) {
-    const username = e.target.value;
+  onChangestudentID(e){
+    this.setState({
+      studentID: e.target.value
+    })
+  }
 
-    this.setState(function(prevState) {
-      return {
-        currentUser: {
-          ...prevState.currentUser,
-          username: username
-        }
-      };
+  onChangeattendanceStatus(e){
+    this.setState({
+      attendanceStatus: e.target.value
+    })
+  }
+
+  onChangeClass(e) {
+    this.setState({
+      class1: e.target.value
     });
+  };
+
+  refreshList() {
+    this.getRegister(this.props.router.params.id);
   }
 
   getRegister(id) {
@@ -62,25 +74,15 @@ class Register extends Component {
       });
   }
 
-  onChangeStudentID(e){
-    const Id = e.target.value;
-    this.setState({
-      studentID: Id
-    })
-  }
-
-  onChangeAttendanceStatus(e){
-    const attendanceStatus = e.target.value;
-    this.setState({
-      attendanceStatus: attendanceStatus
-    })
-
-  }
-
-
-
   addRegisterItem(data){
-    axios.put("http://localhost:3000/Register/Add/:id" + this.state.currentRegister.dateTime, data)
+    console.log(this.state.studentID);
+    console.log(this.state.attendanceStatus);
+    var data = {
+      studentID: this.state.studentID,
+      attended: this.state.attendanceStatus,
+      classID: this.state.class1,
+    };
+    axios.post("http://localhost:3000/Register/Add/:id" + this.state.currentRegister.dateTime, data)
       .then(response => {
         console.log(response.data);
         this.setState({
@@ -90,10 +92,22 @@ class Register extends Component {
       .catch(e => {
         console.log(e);
       });
+
+      this.refreshList()
   }
 
   updateRegisterItem(data) {
-    axios.put("http://localhost:3000/Register/Update/:id" + this.state.currentRegister.dateTime, data)
+    console.log(this.state.currentRegister.dateTime);
+    var data = {
+      studentID: this.state.studentID,
+      classID: this.state.class1,
+      attended: this.state.attendedStatus
+    };
+    axios({method: "put", url: "http://localhost:3000/Register/Update/" + this.state.currentRegister.dateTime, data: {
+      studentID: this.state.studentID,
+      classID: this.state.class1,
+      attended: this.state.attendanceStatus
+    }})
       .then(response => {
         console.log(response.data);
         this.setState({
@@ -110,15 +124,12 @@ class Register extends Component {
   }
 
   render() {
-    const { currentRegister, currentIndex, studentID, attendanceStatus } = this.state;
-
+    const { currentRegister} = this.state;
     return (
       <div>
 
         <Navbar></Navbar>
-
         <div className="col-md-5 mx-auto" >
-
           <div className='container-sm' id='paddingContainer'>
           <h1>Update Register</h1>
           </div>
@@ -126,12 +137,15 @@ class Register extends Component {
           <div className="edit-form">
             <h4>Register</h4>
             <form>
-              <label>StudentID</label>
-              <input type="text" value={studentID} onChange={this.onChangeStudentID}></input>
-              <label>Status</label>
-              <input type="text" value={attendanceStatus} onChange={this.onChangeAttendanceStatus}></input>
-              <button>Add</button>
-              <button>Edit</button>
+              
+              <label htmlFor='studentID'>StudentID</label>
+              <input type="text" value={this.state.studentID} placeholder="Enter Student ID" onChange={this.onChangestudentID} name="studentID"></input>
+              <label htmlFor='attendanceStatus'>Status</label>
+              <input type="text" value={this.state.attendanceStatus} placeholder="false" onChange={this.onChangeattendanceStatus} name="attendanceStatus"></input>
+              <label htmlFor='class1'>Class</label>
+              <input type="text" value={this.state.class1} placeholder="CL123" onChange={this.onChangeClass} name="class1"></input>
+              <button onClick={this.addRegisterItem}>Add</button>
+              <button onClick={this.updateRegisterItem}>Edit</button>
             </form>
             <form>
               <div className="form-group">
