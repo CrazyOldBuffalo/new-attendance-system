@@ -1,5 +1,4 @@
 import React, { Component, useState } from 'react';
-import UserDataService from "../services/register.service";
 import { withRouter } from '../common/router';
 import axios from 'axios';
 import Navbar from './navbar.component';
@@ -15,7 +14,7 @@ class Register extends Component {
     this.getRegister = this.getRegister.bind(this);
     this.addRegisterItem = this.addRegisterItem.bind(this);
     this.updateRegisterItem = this.updateRegisterItem.bind(this);
-    this.deleteRegister = this.deleteRegisterItem.bind(this);
+    this.deleteRegisterItem = this.deleteRegisterItem.bind(this);
     this.onChangestudentID = this.onChangestudentID.bind(this);
     this.onChangeattendanceStatus = this.onChangeattendanceStatus.bind(this);
     this.onChangeClass = this.onChangeClass.bind(this);
@@ -29,6 +28,8 @@ class Register extends Component {
         studentID: "",
         attendanceStatus: "",
         class1: "",
+
+        currentIndex: null,
       },
       message: "",
     };
@@ -39,13 +40,13 @@ class Register extends Component {
     console.log(this.props.router.params.id);
   }
 
-  onChangestudentID(e){
+  onChangestudentID(e) {
     this.setState({
       studentID: e.target.value
     })
   }
 
-  onChangeattendanceStatus(e){
+  onChangeattendanceStatus(e) {
     this.setState({
       attendanceStatus: e.target.value
     })
@@ -74,7 +75,7 @@ class Register extends Component {
       });
   }
 
-  addRegisterItem(data){
+  addRegisterItem(data) {
     console.log(this.state.studentID);
     console.log(this.state.attendanceStatus);
     var data = {
@@ -93,23 +94,19 @@ class Register extends Component {
         console.log(e);
       });
 
-      this.refreshList()
+    this.refreshList()
   }
 
   updateRegisterItem(data) {
-    console.log(this.state.currentRegister.dateTime);
+    //console.log(this.state.currentRegister.dateTime);
     var data = {
       studentID: this.state.studentID,
       classID: this.state.class1,
-      attended: this.state.attendedStatus
+      attended: this.state.attendanceStatus,
     };
-    axios({method: "put", url: "http://localhost:3000/Register/Update/" + this.state.currentRegister.dateTime, data: {
-      studentID: this.state.studentID,
-      classID: this.state.class1,
-      attended: this.state.attendanceStatus
-    }})
+    axios.put("http://localhost:3000/Register/Update/" + this.state.currentRegister.dateTime, data)
       .then(response => {
-        console.log(response.data);
+        //console.log(response.data);
         this.setState({
           message: "The Register was updated successfully!"
         });
@@ -117,99 +114,121 @@ class Register extends Component {
       .catch(e => {
         console.log(e);
       });
+
+      this.refreshList();
   }
 
   deleteRegisterItem(data) {
+    var datas = {
+      studentID: this.state.studentID,
+      classID: this.state.class1,
+      attended: this.state.attendanceStatus,
+    };
+    axios({
+      method: "delete", url: "http://localhost:3000/Register/DeleteItem/" + this.state.currentRegister.dateTime, data: {
+        studentID: this.state.studentID,
+        classID: this.state.class1,
+        attended: this.state.attendanceStatus
+      }
+    }).then(response => {
+      this.setState({
+        message: "Register Item Deleted"
+      });
+    })
+      .catch(e => {
+        console.log(e);
+      });
 
-  }
+      this.refreshList();
+  };
 
   render() {
-    const { currentRegister} = this.state;
+    const { currentRegister, currentIndex } = this.state;
     return (
       <div>
 
         <Navbar></Navbar>
         <div className="col-md-5 mx-auto" >
           <div className='container-sm' id='paddingContainer'>
-          <h1>Update Register</h1>
+            <h1>Update Register</h1>
           </div>
-        {currentRegister ? (
-          <div className="edit-form">
-            <h4>Register</h4>
-            <form>
-              
-              <label htmlFor='studentID'>StudentID</label>
-              <input type="text" value={this.state.studentID} placeholder="Enter Student ID" onChange={this.onChangestudentID} name="studentID"></input>
-              <label htmlFor='attendanceStatus'>Status</label>
-              <input type="text" value={this.state.attendanceStatus} placeholder="false" onChange={this.onChangeattendanceStatus} name="attendanceStatus"></input>
-              <label htmlFor='class1'>Class</label>
-              <input type="text" value={this.state.class1} placeholder="CL123" onChange={this.onChangeClass} name="class1"></input>
-              <button onClick={this.addRegisterItem}>Add</button>
-              <button onClick={this.updateRegisterItem}>Edit</button>
-            </form>
-            <form>
-              <div className="form-group">
-                <label htmlFor="dateTime">Datetime</label>
-                <input
-                  type="text"
-                  disabled={true}
-                  className="form-control"
-                  id="datetime"
-                  value={currentRegister.dateTime}
-                />
-              </div>
-              {console.log(currentRegister.attendanceList)}
-               <div className="form-group">
-                <table className='table'>
-                  <thead>
-                  <tr>
-                    <th>
-                      Student
-                    </th>
-                    <th>
-                      Attended
-                    </th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  {
-                    currentRegister.attendanceList.map((attendee, index) =>(
-                      <tr key={index}>
-                        <td>{attendee.students.studentID}</td>
-                        {console.log(attendee.attended)}
-                        <td>{attendee.attended.toString()}</td>
+          {currentRegister ? (
+            <div className="edit-form">
+              <h4>Register</h4>
+              <form>
+
+                <label htmlFor='studentID'>StudentID</label>
+                <input type="text" value={this.state.studentID} placeholder="Enter Student ID" onChange={this.onChangestudentID} name="studentID"></input>
+                <label htmlFor='attendanceStatus'>Status</label>
+                <input type="text" value={this.state.attendanceStatus} placeholder="false" onChange={this.onChangeattendanceStatus} name="attendanceStatus"></input>
+                <label htmlFor='class1'>Class</label>
+                <input type="text" value={this.state.class1} placeholder="CL123" onChange={this.onChangeClass} name="class1"></input>
+                <button onClick={this.addRegisterItem}>Add</button>
+                <button onClick={this.updateRegisterItem}>Edit</button>
+                <button onClick={this.deleteRegisterItem}>Delete</button>
+              </form>
+              <form>
+                <div className="form-group">
+                  <label htmlFor="dateTime">Datetime</label>
+                  <input
+                    type="text"
+                    disabled={true}
+                    className="form-control"
+                    id="datetime"
+                    value={currentRegister.dateTime}
+                  />
+                </div>
+                <div className="form-group">
+                  <table className='table'>
+                    <thead>
+                      <tr>
+                        <th>
+                          Student
+                        </th>
+                        <th>
+                          Attended
+                        </th>
                       </tr>
-                    ))
-                  }
+                    </thead>
+                    <tbody>
+                      {
+                        currentRegister.attendanceList.map((attendee, index) => (
+                          <tr key={index} className={(index === currentIndex)} >
+                            <td>{attendee.students.studentID}</td>
+                            {console.log(attendee.attended)}
+                            <td>{attendee.attended.toString()}</td>
+                          </tr>
+                        ))
+                      }
 
-                  </tbody>
-                </table>
-              </div>
-            </form>
+                    </tbody>
+                  </table>
+                </div>
+              </form>
 
-            <button
-              className="badge badge-danger mr-2"
-              onClick={this.deleteRegisterItem}
-            >
-              Delete
-            </button>
+              <button
+                className="badge badge-danger mr-2"
+                onClick={this.deleteRegisterItem}
+              >
+                Delete
+              </button>
 
-            <button
-              type="submit"
-              className="badge badge-success"
-              onClick={this.updateRegisterItem}
-            >
-              Update
-            </button>
-            <p>{this.state.message}</p>
-          </div>
-        ) : (
-          <div>
-            <br />
-            <p>Please click on a User...</p>
-        </div> 
-        )}
-      </div>
+              <button
+                type="submit"
+                className="badge badge-success"
+                onClick={this.updateRegisterItem}
+              >
+                Update
+              </button>
+              <p>{this.state.message}</p>
+            </div>
+          ) : (
+            <div>
+              <br />
+              <p>Please click on a User...</p>
+            </div>
+          )}
+        </div>
       </div>
     );
   }

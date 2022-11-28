@@ -66,7 +66,7 @@ exports.searchStudents = async (req, res) => {
     else {
         const studentlist = await Class1.findOne({classID: req.body.classID, "students" :{"$in": studentdata._id}})
         .populate({path: "register", model:"register",
-            populate: {path: "attendanceList", model: "registerItem"}
+            populate: {path: "attendanceList", model: "registerItem", populate: {path:"students", model:"student"}}
         });
         return studentlist;
     }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import UserDataService from "../services/register.service";
 import { Link, NavLink } from "react-router-dom";
 import axios from 'axios';
+import Navbar from './navbar.component';
 
 class RegisterList extends Component {
     constructor(props) {
@@ -90,6 +91,7 @@ class RegisterList extends Component {
 
     return (
       <div className="list row">
+        <Navbar></Navbar>
         <div className="col-md-8">
           <div className="input-group mb-3">
             <input
