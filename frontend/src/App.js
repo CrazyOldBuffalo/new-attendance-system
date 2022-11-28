@@ -12,61 +12,36 @@ import Register from './components/register.component';
 import RegisterList from './components/register-list.component';
 import LogIn from './components/log-in.component';
 import LogoutIcon from '@mui/icons-material/Logout';
+import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import Navbar from './components/navbar.component';
 
 
 class App extends Component {
   render() {
     return (
-      <Router>
       <div>
-        <nav className="navbar navbar-expand navbar-dark">
-          <div className='container-fluid'>
-          <Link to={"/Users"} className="navbar-brand">
-            Attendance Management Application
-            <img src='https://www.halepuna.com/wp-content/uploads/2021/02/ic_cal.png'alt="log" width="30" height="30" className="d-inline-block align-text-top"></img>
 
-          </Link>
-          <div className="navbar-nav mr-auto">
-            <li className="nav-item">
-              <Link to={"/Users"} className="nav-link">
-                Search Student
-                <img src='https://www.citypng.com/public/uploads/small/116400840186bmo0mkghcdq8hn99wmpbh9wrgbytghidisi7e41vegbclccrb6kg9hrk0ebgqrpc5ezz2tjtkvsfsvk7yfbakowxbpvrzsakde3.png'alt="log" width="30" height="30" className="d-inline-block align-text-top"></img>
+      <Router>
 
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/add"} className="nav-link">
-                Add User
-                <img src='https://giftcards.woolworths.com.au/_ui/responsive/common/images/User_icon_white.png'alt="log" width="30" height="30" className="d-inline-block align-text-top"></img>
 
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/login"} className="nav-link">
-                Log Out
-                <LogoutIcon className='d-inline-block align-text-top'></LogoutIcon>
-              </Link>
-            </li>
+      <Routes>
+      <Route path="/" element={<LogIn/>} />
 
-          </div>
-          </div>
-        </nav>
-
-    
-
-        <div className="container-sm">
-          <Routes>
-            <Route path="/" element={<UsersList/>} />
-            <Route path="/users" element={<UsersList/>} />
-            <Route path="/add" element={<AddUser/>} />
-            <Route path="/users/:id" element={<User/>} />
-            <Route path="/register/:id" element={<Register/>} />
-            <Route path="/register-list" element={<RegisterList/>} />
-            <Route path="/login" element={<LogIn/>} />
-          </Routes>
-        </div>
-      </div>
-      </Router>
+        <Route path="/login" element={<LogIn/>} />
+        <Route path="/Navbar" element={<Navbar/>}/>
+        <Route path="/users" element={<UsersList/>} />
+        <Route path="/add" element={<AddUser/>} />
+        <Route path="/users/:id" element={<User/>} />
+        <Route path="/register/:id" element={<Register/>} />
+        <Route path="/register-list" element={<RegisterList/>} />
+      </Routes>
+    </Router>
+    </div>
     )
   };
 }
