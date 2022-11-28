@@ -2,6 +2,7 @@ import React, { Component, useState } from 'react';
 import UserDataService from "../services/register.service";
 import { withRouter } from '../common/router';
 import axios from 'axios';
+import Navbar from './navbar.component';
 
 class Register extends Component {
   constructor(props) {
@@ -118,6 +119,22 @@ class Register extends Component {
 
     return (
       <div>
+
+        <Navbar></Navbar>
+
+        <div className="col-md-5 mx-auto" >
+
+          <div className='container-sm' id='paddingContainer'>
+          <h1>Update Register 
+
+
+
+          
+
+
+            
+          </h1>
+          </div>
         {currentRegister ? (
           <div className="edit-form">
             <h4>Register</h4>
@@ -224,6 +241,7 @@ class Register extends Component {
             <p>Please click on a User...</p>
         </div> 
         )}
+      </div>
       </div>
     );
   }

@@ -8,7 +8,7 @@ import Navbar from '../components/navbar.component.js';
 import User from '../components/user.component';
 import AddUser from '../components/add-user.component';
 import UsersList from '../components/user.component'
-import Register from '../components/editRegister.component';
+
 import RegisterList from '../components/register-list.component';
 import axios from 'axios';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';

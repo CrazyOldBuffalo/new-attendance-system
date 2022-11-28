@@ -7,8 +7,8 @@ import '../styles/nav.scss'
 import User from '../components/user.component';
 import AddUser from '../components/add-user.component';
 import UsersList from '../components/users-list.component';
-import Register from '../components/editRegister.component';
 import RegisterList from '../components/register-list.component';
+import Register from '../components/log-in.component'
 import LogIn from '../components/log-in.component';
 import LogoutIcon from '@mui/icons-material/Logout';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
@@ -56,7 +56,7 @@ class Navbar extends Component {
               </Link>
             </li>
             <li className="nav-item">
-              <Link to={"/editRegister"} className="nav-link">
+              <Link to={"/register/:id"} className="nav-link">
                 Edit Register
                 <AppRegistrationIcon width="30" height="30" className="icons" style={{ color: "white" }}></AppRegistrationIcon>
 
