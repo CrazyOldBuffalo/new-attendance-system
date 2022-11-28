@@ -153,7 +153,7 @@ db.mongoose.connect(db.url, {
 }).then(() => {
     console.log("Connected to DB");
 
-    createUsers(); // populate db.
+    //createUsers(); // populate db.
 }).catch(err => {
     console.log("error connecting to db");
     process.exit();

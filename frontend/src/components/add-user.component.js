@@ -1,17 +1,10 @@
 import axios from 'axios';
 import React, { Component } from 'react';
-import AdbOutlinedIcon from '@mui/icons-material/AdbOutlined';
-import UserDataService from "../services/user.service";
+
 
 
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
-import Box from '@mui/material/Box';
 import Alert from '@mui/material/Alert';
-import IconButton from '@mui/material/IconButton';
-import Collapse from '@mui/material/Collapse';
-import Button from '@mui/material/Button';
-import CloseIcon from '@mui/icons-material/Close';
-import LoginIcon from '@mui/icons-material/Login';
 import Navbar from './navbar.component';
 
 
@@ -81,11 +74,6 @@ class AddUser extends Component {
 
   saveUser() {
 
- 
-
-
-
-
     var data = {
       username: this.state.username,
       password: this.state.password,
@@ -112,13 +100,10 @@ class AddUser extends Component {
             canEditCourse: response.data.canEditCourse,
             message: "The User was created successfully!"
         });
-        //console.log(response.data);
-        //console.log(response.status)
         if(response.status=='200'){
           console.log('great success')
           document.getElementById('responseMessageSuccess').style.visibility='visible'
           document.getElementById('responseMessageError').style.visibility='hidden'
-
         }
         
       })

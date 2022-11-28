@@ -7,7 +7,6 @@ module.exports = mongoose => {
                     type: mongoose.Schema.Types.ObjectID,
                     ref: "Student",
                     required: true,
-                    unique: true
                 },
                 attended: {
                     type: Boolean,
