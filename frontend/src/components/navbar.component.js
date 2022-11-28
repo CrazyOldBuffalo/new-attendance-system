@@ -48,20 +48,7 @@ class Navbar extends Component {
 
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/users/:id"} className="nav-link">
-                Edit Student
-                <ManageAccountsIcon width="30" height="30" className="icons" style={{ color: "white" }}></ManageAccountsIcon>
-
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to={"/register/:id"} className="nav-link">
-                Edit Register
-                <AppRegistrationIcon width="30" height="30" className="icons" style={{ color: "white" }}></AppRegistrationIcon>
-
-              </Link>
-            </li>
+           
             <li className="nav-item">
               <Link to={"/add"} className="nav-link">
                 Add User
