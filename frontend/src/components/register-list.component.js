@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import UserDataService from "../services/register.service";
 import { Link, NavLink } from "react-router-dom";
 import axios from 'axios';
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import '../styles/searchPage.scss'
 import Navbar from './navbar.component';
 
 class RegisterList extends Component {
@@ -92,26 +90,8 @@ class RegisterList extends Component {
    const { searchDatetime, registers, currentRegister, currentIndex } = this.state;
 
     return (
-      <div>
-
-        <Navbar/>
-
-        <div className="col-md-5 mx-auto" >
-
-         <div className='container-sm' id='paddingContainer'>
-          <h1>Search Register 
-
-
-
-          <ManageSearchIcon className="icons">
-
-          </ManageSearchIcon>
-
-
-            
-          </h1>
-        </div>
       <div className="list row">
+        <Navbar></Navbar>
         <div className="col-md-8">
           <div className="input-group mb-3">
             <input
@@ -186,8 +166,6 @@ class RegisterList extends Component {
             </div>
           )}
         </div>
-      </div>
-      </div>
       </div>
     );
   }
