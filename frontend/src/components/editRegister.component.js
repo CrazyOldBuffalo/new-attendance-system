@@ -3,6 +3,9 @@ import UserDataService from "../services/register.service";
 import { withRouter } from '../common/router';
 //import { response } from '../../../backend/app';
 //import { map, render } from '../../../backend/app';
+import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
+import Navbar from './navbar.component';
+import '../styles/searchPage.scss'
 
 class Register extends Component {
     constructor(props) {
@@ -65,7 +68,17 @@ class Register extends Component {
     
         const {currentRegister} = this.state;
         return(
-            <div>
+      <div>
+                      <Navbar/>
+        <div className="col-md-2 mx-auto" >
+
+
+               <div className='container-sm' id='paddingContainer'>
+                <h1>Edit Register 
+                <AppRegistrationIcon className="icons">
+                </AppRegistrationIcon>
+                </h1>
+               </div>
         {currentRegister ? (
           <div className="edit-form">
             <h4>Register</h4>
@@ -88,6 +101,7 @@ class Register extends Component {
                 </div>
               )}
               </div>
+            </div>
             
               
         );

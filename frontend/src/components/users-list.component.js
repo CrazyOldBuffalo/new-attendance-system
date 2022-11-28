@@ -3,6 +3,7 @@ import UserDataService from "../services/user.service";
 import { Link, NavLink } from "react-router-dom";
 import axios from 'axios';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import Navbar from './navbar.component';
 class UsersList extends Component {
     constructor(props) {
         super(props);
@@ -92,6 +93,10 @@ class UsersList extends Component {
     return (
       
       <div>
+        
+          <Navbar/>
+          <div className="col-md-5 mx-auto" >
+
            <div className='container-sm' id='paddingContainer'>
           <h1>Search Student 
 
@@ -219,6 +224,7 @@ class UsersList extends Component {
             </div>
           )}
         </div>
+      </div>
       </div>
       </div>
     );

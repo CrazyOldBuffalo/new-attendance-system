@@ -2,7 +2,8 @@ import React, { Component, useState } from 'react';
 import UserDataService from "../services/user.service";
 import { withRouter } from '../common/router';
 import axios from 'axios';
-
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import Navbar from './navbar.component';
 class User extends Component {
   constructor(props) {
     super(props);
@@ -178,6 +179,15 @@ class User extends Component {
 
     return (
       <div>
+        <Navbar/>
+        <div className="col-md-5 mx-auto" >
+          <div className='container-sm' id='paddingContainer'>
+            <h1>Edit Student 
+            <ManageAccountsIcon className="icons">
+            </ManageAccountsIcon> 
+            </h1>
+          </div>
+
         {currentUser ? (
           <div className="edit-form">
             <h4>User</h4>
@@ -279,6 +289,7 @@ class User extends Component {
             <p>Please click on a User...</p>
           </div>
         )}
+      </div>
       </div>
     );
   }
