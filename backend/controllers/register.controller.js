@@ -67,6 +67,7 @@ exports.editRegisterItem = async (req, res) => {
     const student = await studentController.extendsStudentFind(req, res);
     if (!student) { return err => errors.error404(err, res) }
     else {
+        const studentlist = await classController.searchStudents(req, res);
         const objectid = studentlist.register.attendanceList.find(element => student);
         registerItemController.updateRegisterItem(objectid, req, res);
 
