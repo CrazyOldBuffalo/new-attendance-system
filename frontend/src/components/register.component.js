@@ -16,12 +16,16 @@ class Register extends Component {
     this.addRegisterItem = this.addRegisterItem.bind(this);
     this.updateRegisterItem = this.updateRegisterItem.bind(this);
     this.deleteRegister = this.deleteRegisterItem.bind(this);
+    this.onChangeStudentID = this.onChangeStudentID(this);
+    this.onChangeAttendanceStatus = this.onChangeAttendanceStatus(this);
 
     this.state = {
       currentRegister: {
         dateTime: null,
         attendanceList: [],
-        currentIndex: -1
+        currentIndex: -1,
+        studentID: "",
+        attendanceStatus: ""
       },
       message: "",
     };
@@ -58,31 +62,22 @@ class Register extends Component {
       });
   }
 
+  onChangeStudentID(e){
+    const Id = e.target.value;
+    this.setState({
+      studentID: Id
+    })
+  }
 
-    //  NOT SURE IF THIS IS RELEVANT TO US
+  onChangeAttendanceStatus(e){
+    const attendanceStatus = e.target.value;
+    this.setState({
+      attendanceStatus: attendanceStatus
+    })
 
-  
-  // onChangeUpdatePublished(status) {
-  //   var data = {
-  //     dateTime: this.state.currentRegister.dateTime,
-  //     attended: this.state.currentRegister.attended,
-  //     studentID: this.state.currentRegister.studentID
-  //   };
+  }
 
-  //   UserDataService.update(this.state.currentRegister.id, data)
-  //     .then(response => {
-  //       this.setState(prevState => ({
-  //         currentRegister: {
-  //           ...prevState.currentRegister,
-  //           published: status
-  //         }
-  //       }));
-  //       console.log(response.data);
-  //     })
-  //     .catch(e => {
-  //       console.log(e);
-  //     });
-  // }
+
 
   addRegisterItem(data){
     axios.put("http://localhost:3000/Register/Add/:id" + this.state.currentRegister.dateTime, data)
@@ -115,7 +110,7 @@ class Register extends Component {
   }
 
   render() {
-    const { currentRegister, currentIndex } = this.state;
+    const { currentRegister, currentIndex, studentID, attendanceStatus } = this.state;
 
     return (
       <div>
@@ -125,19 +120,19 @@ class Register extends Component {
         <div className="col-md-5 mx-auto" >
 
           <div className='container-sm' id='paddingContainer'>
-          <h1>Update Register 
-
-
-
-          
-
-
-            
-          </h1>
+          <h1>Update Register</h1>
           </div>
         {currentRegister ? (
           <div className="edit-form">
             <h4>Register</h4>
+            <form>
+              <label>StudentID</label>
+              <input type="text" value={studentID} onChange={this.onChangeStudentID}></input>
+              <label>Status</label>
+              <input type="text" value={attendanceStatus} onChange={this.onChangeAttendanceStatus}></input>
+              <button>Add</button>
+              <button>Edit</button>
+            </form>
             <form>
               <div className="form-group">
                 <label htmlFor="dateTime">Datetime</label>
@@ -175,48 +170,7 @@ class Register extends Component {
 
                   </tbody>
                 </table>
-                <label htmlFor="password">Password</label>
-                {/* <input
-                  type="password"
-                  className="form-control"
-                  id="password"
-                  value={currentUser.password}
-                  onChange={this.onChangePassword}
-                /> */}
-                { 
-                }
-                
               </div>
-              {/*
-              <div className="form-group">
-                <label htmlFor="email">Email</label>
-                <input
-                  type="email"
-                  className="form-control"
-                  id="email"
-                  value={currentUser.email}
-                  onChange={this.onChangeEmail}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="telephone">Telephone No.</label>
-                <input
-                  type="text"
-                  className="form-control"
-                  id="telephone"
-                  value={currentUser.telephone}
-                  onChange={this.onChangeTelephone}
-                />
-              </div>
-
-              <div className="form-group">
-                <label>
-                  <strong>Status: </strong>
-                </label>
-                {currentUser.published ? " Published" : " Pending"}
-              </div>
-              */}
             </form>
 
             <button
