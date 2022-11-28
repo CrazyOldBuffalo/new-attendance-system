@@ -20,6 +20,19 @@ exports.createAdvisor = async(req,res) => {
     }).catch(err => errors.error500(err, res));
 };
 
+exports.findAdvisors = (req, res) => {
+    const advisorsearch = req.params.id;
+    const reg = new RegExp(advisorsearch, 'i');
+    AcademicAdvisor.find({academicAdvisorID: {$regex: reg}}).then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: 
+                err.message || "Failed to search DB"
+        });
+    });
+}
 exports.findAllAdvisors = (req,res) => {
     AcademicAdvisor.find().populate({path: "userRef", model: "user"}).then(data => {
         res.send(data);
