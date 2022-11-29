@@ -29,3 +29,14 @@ or run mongoDB from the terminal ensuring it is on `localhost:27017`
 5. Run `npm start` in both the `frontend` & `backend` folders in 2 seperate terminals
 6. Use the application
 
+***
+
+## For running the Tests please follow these steps ##
+
+1. Ensure cypress is installed by navigating to the `frontend` folder in terminal and typing in `npm install cypress`
+2. Once installed type `npx cypress open` into the terminal within the `frontend` folder
+3. Click on E2E testing
+4. Click on any of the tests within to run
+5. wait for the test to open in you preferred browser and complete.
+
+***
