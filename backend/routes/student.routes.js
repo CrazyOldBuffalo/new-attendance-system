@@ -4,6 +4,7 @@ module.exports = app => {
 
     router.post("/student/", studentController.createStudent);
     router.get("/student/", studentController.findAllStudents);
+    router.get("/student/attendance/:id", studentController.generateStudentAttendanceReport);
     router.get("/student/find/:id", studentController.findOneStudent);
     router.put("/student/update/:id", studentController.updateStudentUser);
     router.put("/student/update/advisor/:id", studentController.updateStudentAdvisor);

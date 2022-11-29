@@ -71,9 +71,9 @@ exports.updateStudentAdvisor = (req, adv, res) => {
 exports.generateStudentAttendanceReport = async (req, res) => {
     const studentdata = await Student.findOne({studentID: req.params.id});
     if(!studentdata) {errors.error404("No student found", res)};
-    const coursedata = await courseController.findStudent(studentdata._id);
+    const coursedata = await courseController.findStudent(req, res);
     if(!coursedata) {errors.error404("No Course + Student pair found", res)};
 
-    const test = await courseController.getCourseAttendance(studentdata, res);
+    const test = await courseController.getCourseAttendance(coursedata, res);
     res.send(test);
 };
