@@ -66,5 +66,13 @@ exports.findStudent = async (req,res) => {
 
 
 exports.getCourseAttendance = (req, res) => {
-    /// ???? depends if needed
+    return attendancedata = Course.findOneById(req._id).populate({path: "modules", model: "module", populate: {
+        path: "classes", model: "class", populate: {
+            path: "register", model: "register", populate: {
+                path: "attendanceList", model: "registerItem"
+            }
+        }
+    }}).catch(errors.error500("error", res));
+
+    
 };
