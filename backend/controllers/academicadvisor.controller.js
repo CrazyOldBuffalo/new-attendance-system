@@ -3,6 +3,7 @@ const AcademicAdvisor = db.academicAdvisors;
 const UserController =  require('./user.controller');
 const errors = require('./utils/errors.controller');
 const studentController = require('./student.controller');
+const ModuleController = require('./module.controller');
 
 exports.createAdvisor = async(req,res) => {
     if(!req.body) {return err => errors.error400(err, res)};
@@ -88,3 +89,25 @@ exports.extendsacademicAdvisorFind = (req,res) => {
         return advisordata;
     };
 };
+
+
+exports.generateAttendanceIndicatior = async (req, res) => {
+
+    // Initial checks for the following:
+    // Check data is sent
+    // check if advisor exists
+    // check if student is assigned to advisor
+    // check if student is in module and return module attendance data
+    if(!req.body) {return errors.error400("No Data sent", res)};
+    const advisordata = await AcademicAdvisor.findOne({academicAdvisorID: req.params.id}).populate({path: "students", model: "student"})
+    var searchStudent = advisordata.students.find(x =>{return x.studentID == req.body.studentID});
+    if(!searchStudent) {return errors.error404("No Student found", res)};
+    const studentModuleCheck = await ModuleController.getModuleAttendance(searchStudent, req, res);
+    const data = studentModuleCheck.classes;
+    console.log(data);
+    if(!studentModuleCheck) {return errors.error404("No Student in Module", res)}
+    else {
+        res.send(studentModuleCheck.classes.studentdata);
+    }
+
+}

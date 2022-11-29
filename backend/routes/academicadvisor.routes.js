@@ -6,9 +6,10 @@ module.exports = app => {
     router.get("/advisor/", academicAdvisorController.findAllAdvisors);
     router.get("/advisor/:id", academicAdvisorController.findOneAdvisor);
     router.get("/advisor/search/:id", academicAdvisorController.findAdvisors);
-    router.put("/Advisor/Update/:id", academicAdvisorController.updateAdvisorUser);
-    router.put("/Advisor/Update/Students/:id", academicAdvisorController.updateAdvisorStudentsList);
-    router.delete("/Advisor/Delete/:id", academicAdvisorController.deleteAdvisor);
+    router.put("/advisor/update/:id", academicAdvisorController.updateAdvisorUser);
+    router.put("/advisor/update/students/:id", academicAdvisorController.updateAdvisorStudentsList);
+    router.delete("/advisor/delete/:id", academicAdvisorController.deleteAdvisor);
+    router.get("/advisor/attendance/:id", academicAdvisorController.generateAttendanceIndicatior);
 
     app.use("/", router);
 }

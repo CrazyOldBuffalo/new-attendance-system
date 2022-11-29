@@ -67,16 +67,29 @@ exports.findOneModule = (req, res) => {
         }).catch(err => { errors.error500(err, res) });
 };
 
-exports.returnStudentList = async (req,res) => {
-    const studentdata = studentController.extendsStudentFind(req, res);
-    if(!studentdata) {return err => errors.error404(err, res)};
-    const studentList = await Module.find({moduleID: req.params.id, "students": {"$in": studentdata._id}});
-    if(!studentList) {return err => errors.error404(err, res)}
+exports.returnStudentList = async (data, req, res) => {
+    const studentList = await Module.find({moduleID: req.body.moduleID, "students": {"$in": data._id}});
+    if(!studentList) {return errors.error404("No module found", res)}
     else {
         return studentList;
     };
 }
 
-exports.getModuleAttendance = (req, res) => {
-    ///??? depends if needed
+exports.getModuleAttendance = (data, req, res) => {
+
+    const studentlist = this.returnStudentList(data, req, res);
+    if(!studentlist) {return errors.error404("Empty", res)};
+
+    const attendanceData = Module.find({moduleID: req.body.moduleID, "students": {"$in": data._id}}).populate({path: "classes", model: "class",
+    populate: {
+        path: "register", model: "register", 
+        populate: {
+            path: "attendanceList", model: "registerItem",
+            populate: {
+                path: "students", model: "student"
+            }
+        }
+    }});
+
+    return attendanceData;
 };
