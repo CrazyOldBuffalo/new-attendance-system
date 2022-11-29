@@ -20,6 +20,7 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import Navbar from './components/navbar.component';
+import AcademicAdvisor from './components/academicadvisor.component';
 
 
 class App extends Component {
@@ -41,6 +42,7 @@ class App extends Component {
         <Route path="/users/:id" element={<User/>} />
         <Route path="/register/:id" element={<Register/>} />
         <Route path="/register-list" element={<RegisterList/>} />
+        <Route path="/advisor" element={<AcademicAdvisor/>} />
       </Routes>
     </Router>
     </div>

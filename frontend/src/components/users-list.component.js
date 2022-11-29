@@ -209,13 +209,6 @@ class UsersList extends Component {
                 Edit
               </Link>
 
-              
-              {/* <button
-                to={"/users/" + currentUser.id}
-                className="badge badge-warning"
-              >
-                Edit
-              </button> */}
 
             </div>
           ) : (
