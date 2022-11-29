@@ -3,6 +3,8 @@ const db = require('../models');
 const errors = require("./utils/errors.controller");
 const UserController = require("./user.controller");
 const academicAdvisorController = require("./academicadvisor.controller");
+const courseController = require("./course.controller");
+const { returnStudentList } = require('./module.controller');
 const Student = db.students;
 
 
@@ -64,4 +66,14 @@ exports.extendsStudentFind = async(req, res) => {
 exports.updateStudentAdvisor = (req, adv, res) => {
     if(!req || !adv) {return err=> errors.error400(err, res)};
     Student.findByIdAndUpdate(req._id, {academicAdvisor: adv._id}).catch(err => errors.error500(err, res));
+};
+
+exports.generateStudentAttendanceReport = async (req, res) => {
+    const studentdata = await Student.findOne({studentID: req.params.id});
+    if(!studentdata) {errors.error404("No student found", res)};
+    const coursedata = await courseController.findStudent(req, res);
+    if(!coursedata) {errors.error404("No Course + Student pair found", res)};
+
+    const test = await courseController.getCourseAttendance(coursedata, res);
+    res.send(test);
 };

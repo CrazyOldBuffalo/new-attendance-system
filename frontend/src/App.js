@@ -12,14 +12,10 @@ import Register from './components/register.component';
 import RegisterList from './components/register-list.component';
 import LogIn from './components/log-in.component';
 import AddUserExternal from './components/create-user-external.component';
-import LogoutIcon from '@mui/icons-material/Logout';
-import PersonSearchIcon from '@mui/icons-material/PersonSearch';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import AdvisorList from './components/academicadvisor-List.component';
 import Navbar from './components/navbar.component';
+import StudentList from './components/student-list.component';
+import StudentReport from './components/student-report.component';
 
 
 class App extends Component {
@@ -41,6 +37,8 @@ class App extends Component {
         <Route path="/users/:id" element={<User/>} />
         <Route path="/register/:id" element={<Register/>} />
         <Route path="/register-list" element={<RegisterList/>} />
+        <Route path="/advisor-list" element={<AdvisorList/>} />
+        <Route path="/student-list" element={<StudentList/>}/>
       </Routes>
     </Router>
     </div>
