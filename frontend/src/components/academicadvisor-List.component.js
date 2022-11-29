@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import advisorService from '../services/advisor.service';
 import { Link, NavLink } from "react-router-dom";
-import axios, { Axios } from 'axios';
+import Navbar from './navbar.component';
 
 class AdvisorList extends Component {
     constructor(props) {
@@ -79,6 +79,7 @@ class AdvisorList extends Component {
 
     return (
       <div className="list row">
+              <Navbar />
         <div className="col-md-8">
           <div className="input-group mb-3">
             <input
