@@ -14,14 +14,12 @@ app.use(express.urlencoded({ extended: true }));
 const User = db.users;
 const Tutor = db.tutors;
 const Student = db.students;
-const ModuleLeader = db.moduleLeaders;
-const CourseLeader = db.courseLeaders;
+const Advisor = db.academicAdvisors;
 const Module = db.modules;
 const Course = db.courses;
 const Class = db.classes;
 const Register = db.registers;
 const RegisterItem = db.registerItem;
-const TestRegister = db.testregister;
 
 async function createUsers() {
   const user1 = new User({
@@ -88,13 +86,9 @@ async function createUsers() {
     tutorID: "TU111",
     userRef: user2
   });
-  const tutor3 = new Tutor({
-    tutorID: "TU132",
-    userRef: user3
-  });
+
   tutor1.save(tutor1);
   tutor2.save(tutor2);
-  tutor3.save(tutor3);
 
   const regitem1 = new RegisterItem({
     students: student,
@@ -107,6 +101,12 @@ async function createUsers() {
   regitem1.save(regitem1);
   regitem2.save(regitem2);
 
+  const academicadvisor = new Advisor({
+    tutorID: "TU132",
+    userRef: user3,
+    students: [student]
+  });
+  academicadvisor.save(academicadvisor);
   const register = new Register({
     dateTime: Date.now(),
     attendanceList: [regitem1, regitem2]
@@ -139,7 +139,7 @@ async function createUsers() {
     courseName: "Software Engineering bENG",
     courseID: "SE123",
     students: [student],
-    courseLeader: tutor3,
+    courseLeader: tutor2,
     modules: [module]
   });
 
@@ -175,6 +175,7 @@ require("./routes/class.routes")(app);
 require("./routes/register.routes")(app);
 require('./routes/auth.routes')(app); 
 require('./routes/security.routes')(app);
+require('./routes/registeritem.routes')(app);
 
 
 module.exports = app;

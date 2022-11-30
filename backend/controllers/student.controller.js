@@ -85,3 +85,8 @@ exports.generateStudentAttendanceReport = async (req, res) => {
     const result = await courseController.getCourseAttendance(coursedata, res)
     res.send(result);
 };
+
+exports.testfunction = async (req, res) => {
+    const data = await Student.findOne({studentID: req.params.id});
+    return data;
+}
