@@ -3,7 +3,8 @@ import UserDataService from "../services/register.service";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import Navbar from './navbar.component';
-
+import ManageSearchIcon from '@mui/icons-material/ManageSearch';
+import EditIcon from '@mui/icons-material/Edit';
 class RegisterList extends Component {
     constructor(props) {
         super(props);
@@ -90,8 +91,14 @@ class RegisterList extends Component {
    const { searchDatetime, registers, currentRegister, currentIndex } = this.state;
 
     return (
-      <div className="list row">
+      <div>
         <Navbar></Navbar>
+        <div className="padding" style={{paddingTop:"20px"}} >
+
+        <h1 style={{textAlign:"center"}}>Search Register <ManageSearchIcon className="icons"/></h1>
+
+        <div className="col-md-7 mx-auto" >
+
         <div className="col-md-8">
           <div className="input-group mb-3">
             <input
@@ -135,7 +142,7 @@ class RegisterList extends Component {
         <div className="col-md-6">
           {currentRegister ? (
             <div>
-              <h4>Datetime</h4>
+              <h4>Date Time <i>YYYY-MM-DD</i></h4>
               <div>
                 <label>
                   <strong>datetime:</strong>
@@ -145,9 +152,9 @@ class RegisterList extends Component {
 
               <Link
                 to={"/register/" + currentRegister.dateTime}
-                className="badge badge-warning"
               >
-                Edit
+                   <button class="btn btn-outline-success">Edit <EditIcon/> </button>
+
               </Link>
 
               
@@ -162,11 +169,13 @@ class RegisterList extends Component {
           ) : (
             <div>
               <br />
-              <p>Please click on a User...</p>
+              <p>Please click on a Register...</p>
             </div>
           )}
         </div>
-      </div>
+        </div>
+        </div>
+        </div>
     );
   }
 }

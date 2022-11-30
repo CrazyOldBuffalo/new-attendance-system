@@ -12,6 +12,9 @@ import ManageSearchIcon from '@mui/icons-material/ManageSearch';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
+import ViewListIcon from '@mui/icons-material/ViewList';
+import SchoolIcon from '@mui/icons-material/School';
+import { Modal } from "bootstrap";
 
 class Navbar extends Component {
   render() {
@@ -32,7 +35,7 @@ class Navbar extends Component {
 
               </Link>
             </li>
-            <li className="nav-item">
+            <li className="nav-item" id="searchRegisterNav">
               <Link to={"/register-list"} className="nav-link">
                 Search Register
                 <ManageSearchIcon width="30" height="30" className="icons" style={{ color: "white" }}></ManageSearchIcon>
@@ -43,6 +46,8 @@ class Navbar extends Component {
             <li className="nav-item">
               <Link to={"/student-list"} className="nav-link">
                 Student List
+                <SchoolIcon width="30" height="30" className="icons" style={{ color: "white" }}></SchoolIcon>
+
               </Link>
             </li>
 
@@ -56,6 +61,8 @@ class Navbar extends Component {
             <li className="nav-item">
               <Link to={"/advisor-list"} className="nav-link">
                 Advisor List
+                <ViewListIcon width="30" height="30" className="icons" style={{ color: "white" }}></ViewListIcon>
+
               </Link>
             </li>
              

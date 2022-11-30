@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import AssessmentIcon from '@mui/icons-material/Assessment';
 import Navbar from './navbar.component';
 
 class StudentList extends Component {
@@ -154,9 +155,10 @@ class StudentList extends Component {
               <Link
                 
                 to={"/student/report/" + currentStudent.studentID}
-                className="badge badge-warning"
               >
-                Generate Report
+                <button class="btn btn-outline-success">Generate Report <AssessmentIcon/> </button>
+
+                
               </Link>
 
               

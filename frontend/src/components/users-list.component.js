@@ -3,6 +3,7 @@ import UserDataService from "../services/user.service";
 import { Link } from "react-router-dom";
 import axios from 'axios';
 import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import EditIcon from '@mui/icons-material/Edit';
 import Navbar from './navbar.component';
 class UsersList extends Component {
   constructor(props) {
@@ -176,7 +177,7 @@ class UsersList extends Component {
                     </label>{" "}
                     {currentUser.password}
                   </div>
-                  <div>
+                  <div id='emailField'>
                     <label>
                       <strong>email:</strong>
                     </label>{" "}
@@ -204,9 +205,10 @@ class UsersList extends Component {
 
                   <Link
                     to={"/users/" + currentUser.username}
-                    className="badge badge-warning"
                   >
-                    Edit
+                      <button class="btn btn-outline-success">Edit <EditIcon/> </button>
+
+                    
                   </Link>
 
 

@@ -20,13 +20,13 @@ describe('User Tests', () => {
     cy.get('#logLink').click();
     cy.get('#username').type('AUTOUSER');
     cy.get('#password').type('pass123');
-    cy.get('#logIn > #logLink').click();
+    cy.get(':nth-child(2) > a > #logLink').click();
 
     //navigate to search student page and select created user
     cy.get('#searchStudent > .nav-link').click();
     cy.wait(2000);
     cy.contains('AUTOUSER').click();
-    cy.get('.badge').click();
+    cy.get(':nth-child(1) > a > .btn').click();
 
       //update user details
      cy.get('#email').type('updatedemail@gm.com');
@@ -35,10 +35,10 @@ describe('User Tests', () => {
      //navigate to search student page
      cy.get('#searchStudent > .nav-link').click();
      cy.contains('AUTOUSER').click();
-     cy.get(':nth-child(3) > :nth-child(1) > :nth-child(4)').should('contain','updatedemail@gm.com');
+     cy.get('#emailField').should('contain','updatedemail@gm.com');
 
      //delete created user
-     cy.get('.badge').click();
+     cy.get(':nth-child(1) > a > .btn').click();
      cy.get('#deleteBtn').click();
 
 

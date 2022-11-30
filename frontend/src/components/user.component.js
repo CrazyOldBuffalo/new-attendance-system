@@ -3,6 +3,8 @@ import UserDataService from "../services/user.service";
 import { withRouter } from '../common/router';
 import axios from 'axios';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import UpgradeIcon from '@mui/icons-material/Upgrade';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import Navbar from './navbar.component';
 class User extends Component {
   constructor(props) {
@@ -269,21 +271,21 @@ class User extends Component {
             </form>
 
             <button
-              className="badge badge-danger mr-2"
+              className="btn btn-outline-danger"
               onClick={this.deleteUser}
               id="deleteBtn"
 
             >
-              Delete
+              Delete <DeleteForeverIcon/>
             </button>
 
             <button
               type="submit"
-              className="badge badge-success"
+              className="btn btn-outline-success"
               onClick={this.updateUser}
               id="updateBtn"
             >
-              Update
+              Update<UpgradeIcon/>
             </button>
             <p>{this.state.message}</p>
           </div>
