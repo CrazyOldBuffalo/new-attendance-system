@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import advisorService from '../services/advisor.service';
 import { Link } from "react-router-dom";
 import Navbar from './navbar.component';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 
 class AdvisorList extends Component {
     constructor(props) {
@@ -55,10 +56,13 @@ class AdvisorList extends Component {
     }
 
     setActiveAdvisor(advisor, index) {
+      console.log(advisor);
+      console.log(index);
         this.setState({
-          cuurentAdvisor: advisor,
+          currentAdvisor: advisor,
           currentIndex: index
         });
+        console.log(this.state.currentAdvisor);
     }
 
     searchAdvisor() {
@@ -74,11 +78,11 @@ class AdvisorList extends Component {
         });
       }
 
-    render(){
-   const { searchAdvisor, advisors, currentAdvisor, currentIndex } = this.state;
-
-    return (
-      <div className="list row">
+      render() {
+        const { currentAdvisor, advisors, currentIndex, searchAdvisor } = this.state;
+    
+        return (
+          <div className="list row">
               <Navbar />
         <div className="col-md-8">
           <div className="input-group mb-3">
@@ -111,7 +115,7 @@ class AdvisorList extends Component {
                     "list-group-item " +
                     (index === currentIndex ? "active" : "")
                   }
-                  onClick={() => this.searchAdvisor(advisor, index)}
+                  onClick={() => this.setActiveAdvisor(advisor, index)}
                   key={index}
                 >
                   {advisor.academicAdvisorID}
@@ -152,8 +156,8 @@ class AdvisorList extends Component {
           )}
         </div>
       </div>
-    );
-  }
+        );
+      }
 }
 
 export default AdvisorList;

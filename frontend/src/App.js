@@ -16,6 +16,8 @@ import AdvisorList from './components/academicadvisor-List.component';
 import Navbar from './components/navbar.component';
 import StudentList from './components/student-list.component';
 import StudentReport from './components/student-report.component';
+import AcademicAdvisor from './components/academicadvisor.component';
+import AdvisorReport from './components/academicadvisor-report.component';
 
 
 class App extends Component {
@@ -40,6 +42,8 @@ class App extends Component {
         <Route path="/register/:id" element={<Register/>} />
         <Route path="/register-list" element={<RegisterList/>} />
         <Route path="/advisor-list" element={<AdvisorList/>} />
+        <Route path="/advisors/:id" element={<AcademicAdvisor/>} />
+        <Route path="/advisor-report/:id" element={<AdvisorReport/>} />
         <Route path="/student-list" element={<StudentList/>}/>
         <Route path="/student/report/:id"  element={<StudentReport/>}/>
       </Routes>
