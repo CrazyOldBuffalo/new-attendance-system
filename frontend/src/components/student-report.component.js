@@ -16,6 +16,7 @@ class StudentReport extends Component {
         studentID: "",
 
       },
+      currentIndex: -1,
       attendanceData: [],
       message: "",
     };
@@ -62,7 +63,7 @@ class StudentReport extends Component {
 
 
   render() {
-    const { currentStudent, attendanceData } = this.state;
+    const { currentStudent, attendanceData, currentIndex } = this.state;
 
     return (
 
@@ -70,7 +71,7 @@ class StudentReport extends Component {
         <Navbar/>
         <div className="col-md-5 mx-auto" >
           <div className='container-sm' id='paddingContainer'>
-            <h1>Edit User 
+            <h1>Student Attendance 
             <ManageAccountsIcon className="icons">
             </ManageAccountsIcon> 
             </h1>
@@ -80,7 +81,7 @@ class StudentReport extends Component {
           <div className="edit-form">
             <h4>User</h4>
               <div className="form-group">
-                <label htmlFor="username">Username</label>
+                <label htmlFor="username">StudentID</label>
                 <input
                   type="text"
                   disabled={true}
@@ -90,13 +91,12 @@ class StudentReport extends Component {
                   onChange={this.onChangeUsername}
                 />
               </div>
-              <table></table>
+              <h4>Student Attendance</h4>
               {
-                attendanceData.forEach(e => {
-                  console.log(e);
+                attendanceData.map(item => {
+                  return <li>{item.attended.toString()}</li>
                 })
               }
-              
             <p>{this.state.message}</p>
           </div>
         ) : (
