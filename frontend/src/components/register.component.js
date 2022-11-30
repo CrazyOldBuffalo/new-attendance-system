@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { withRouter } from '../common/router';
 import axios from 'axios';
 import Navbar from './navbar.component';
@@ -28,8 +28,6 @@ class Register extends Component {
         studentID: "",
         attendanceStatus: "",
         class1: "",
-
-        currentIndex: null,
       },
       message: "",
     };
@@ -75,7 +73,7 @@ class Register extends Component {
       });
   }
 
-  addRegisterItem(data) {
+  addRegisterItem() {
     console.log(this.state.studentID);
     console.log(this.state.attendanceStatus);
     var data = {
@@ -97,8 +95,8 @@ class Register extends Component {
     this.refreshList()
   }
 
-  updateRegisterItem(data) {
-    //console.log(this.state.currentRegister.dateTime);
+  updateRegisterItem() {
+
     var data = {
       studentID: this.state.studentID,
       classID: this.state.class1,
@@ -106,7 +104,6 @@ class Register extends Component {
     };
     axios.put("http://localhost:3000/Register/Update/" + this.state.currentRegister.dateTime, data)
       .then(response => {
-        //console.log(response.data);
         this.setState({
           message: "The Register was updated successfully!"
         });
@@ -118,12 +115,8 @@ class Register extends Component {
       this.refreshList();
   }
 
-  deleteRegisterItem(data) {
-    var datas = {
-      studentID: this.state.studentID,
-      classID: this.state.class1,
-      attended: this.state.attendanceStatus,
-    };
+  deleteRegisterItem() {
+
     axios({
       method: "delete", url: "http://localhost:3000/Register/DeleteItem/" + this.state.currentRegister.dateTime, data: {
         studentID: this.state.studentID,

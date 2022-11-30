@@ -1,184 +1,115 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
+import { withRouter } from '../common/router';
 import axios from 'axios';
-import PersonSearchIcon from '@mui/icons-material/PersonSearch';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import Navbar from './navbar.component';
+class StudentReport extends Component {
+  constructor(props) {
+    super(props);
 
-class StudentList extends Component {
-    constructor(props) {
-        super(props);
+    this.getUser = this.getUser.bind(this);
+    this.formatData = this.formatData.bind(this);
 
-        this.onChangeSearchStudentID = this.onChangeSearchStudentID.bind(this);
-        this.retrieveStudents = this.retrieveStudents.bind(this);
-        this.refreshList = this.refreshList.bind(this);
-        this.setActiveStudent = this.setActiveStudent.bind(this);
-        this.searchStudentID = this.searchStudentID.bind(this);
+    this.state = {
+      currentStudent: {
+        id: null,
+        studentID: "",
 
-        this.state = {
-            students: [],
-            currentStudent: null,
-            currentIndex: -1,
-            searchStudent: ""
-        };
-    }
+      },
+      attendanceData: [],
+      message: "",
+    };
+  }
 
-    componentDidMount(){
-        this.retrieveStudents();
-    }
+  componentDidMount() {
+    this.getUser(this.props.router.params.id);
+  }
 
-    onChangeSearchStudentID(e) {
-        const searchStudentID = e.target.value;
-
+ 
+  getUser(id) {
+    axios.get("http://localhost:3000/student/find/" + id)
+      .then(response => {
         this.setState({
-            searchStudentID: searchStudentID
+          currentStudent: response.data
         });
-    }
+      })
+      .catch(e => {
+        console.log(e);
+      });
+    axios.get("http://localhost:3000/student/attendance/" + id).then(response => {
+      this.formatData(response.data, id);
+    })
+    .catch(e => {
+      console.log(e);
+    });
+  }
 
-    retrieveStudents(){
-        axios.get("http://localhost:3000/student/")
-        .then(response => {
-            this.setState({
-                students: response.data
-            });
-            console.log(response.data);
+  formatData(attendanceData, id) {
+    var data = [];
+    attendanceData.modules.forEach(i => {
+        i.classes.forEach(j => {
+          j.register.attendanceList.forEach(k => {
+            data.push(k);
+          });
         })
-        .catch(e => {
-            console.log(e);
-        });
-    }
+    });
+    const test = data.filter(x => {return x.students.studentID === id});
+    this.setState({
+      attendanceData: test
+    });
+  }
 
-    refreshList() {
-        this.retrieveUsers();
-        this.setState({
-            currentStudent: null,
-            currentIndex: -1
-        });
-    }
 
-    setActiveStudent(student, index) {
-        this.setState({
-          currentStudent: student,
-          currentIndex: index
-        });
-    }
 
-    searchStudentID() {
-        axios.get("http://localhost:3000/student/find/" + this.state.searchStudent)
-          .then(response => {
-            this.setState({
-              students: response.data
-            });
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
-        });
-      }
+  render() {
+    const { currentStudent, attendanceData } = this.state;
 
-    render(){
-   const { searchStudent, students, currentStudent, currentIndex } = this.state;
     return (
+
       <div>
-        
-          <Navbar/>
-          <div className="col-md-5 mx-auto" >
-
-           <div className='container-sm' id='paddingContainer'>
-          <h1>Search Student 
-
-
-
-          <PersonSearchIcon className="icons">
-
-          </PersonSearchIcon>
-
-
-            
-          </h1>
-        </div>
-      <div className="list row">
-
-
-        <div className="col-md-8">
-          <div className="input-group mb-3">
-            <input
-              type="text"
-              className="form-control"
-              placeholder="Search by username"
-              value={searchStudent}
-              onChange={this.onChangeSearchStudentID}
-            />
-            <div className="input-group-append">
-              <button
-                className="btn btn-outline-secondary"
-                id='searchBtn'
-                type="button"
-                onClick={this.searchStudent}
-              >
-                Search
-              </button>
-            </div>
+        <Navbar/>
+        <div className="col-md-5 mx-auto" >
+          <div className='container-sm' id='paddingContainer'>
+            <h1>Edit User 
+            <ManageAccountsIcon className="icons">
+            </ManageAccountsIcon> 
+            </h1>
           </div>
-        </div>
-        <div className="col-md-6">
-          <h4>Students List</h4>
 
-          <ul className="list-group">
-            {students &&
-              students.map((student, index) => (
-                <li
-                  className={
-                    "list-group-item " +
-                    (index === currentIndex ? "active" : "")
-                  }
-                  onClick={() => this.setActiveStudent(student, index)}
-                  key={index}
-                >
-                  {student.studentID}
-                </li>
-              ))}
-          </ul>
-        </div>
-        <div className="col-md-6">
-          {currentStudent ? (
-            <div>
-              <h4>Student</h4>
-              <div>
-                <label>
-                  <strong>username:</strong>
-                </label>{" "}
-                {currentStudent.studentID}
+        {currentStudent ? (
+          <div className="edit-form">
+            <h4>User</h4>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input
+                  type="text"
+                  disabled={true}
+                  className="form-control"
+                  id="username"
+                  value={currentStudent.studentID}
+                  onChange={this.onChangeUsername}
+                />
               </div>
-        
-
-              <Link
-                to={"/users/report/" + currentStudent.studentID}
-                className="badge badge-warning"
-              >
-                Generate Report
-              </Link>
-
+              <table></table>
+              {
+                attendanceData.forEach(e => {
+                  console.log(e);
+                })
+              }
               
-              {/* <button
-                to={"/users/" + currentUser.id}
-                className="badge badge-warning"
-              >
-                Edit
-              </button> */}
-
-            </div>
-          ) : (
-            <div>
-              <br />
-              <p>Please click on a Student...</p>
-            </div>
-          )}
-        </div>
-      </div>
+            <p>{this.state.message}</p>
+          </div>
+        ) : (
+          <div>
+            <br />
+            <p>Please click on a User...</p>
+          </div>
+        )}
       </div>
       </div>
     );
   }
 }
 
-export default StudentList;
+
+export default withRouter(StudentReport);

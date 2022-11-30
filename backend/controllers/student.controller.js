@@ -63,6 +63,14 @@ exports.extendsStudentFind = async(req, res) => {
     };
 };
 
+exports.reportStudentFind = async(req, res) => {
+    const studentdata = await Student.findOne({studentID: req.params.id});
+    if(!studentdata) {return err=> errors.error404(err, res)}
+    else {
+        return studentdata;
+    };
+}
+
 exports.updateStudentAdvisor = (req, adv, res) => {
     if(!req || !adv) {return err=> errors.error400(err, res)};
     Student.findByIdAndUpdate(req._id, {academicAdvisor: adv._id}).catch(err => errors.error500(err, res));
@@ -74,6 +82,6 @@ exports.generateStudentAttendanceReport = async (req, res) => {
     const coursedata = await courseController.findStudent(req, res);
     if(!coursedata) {errors.error404("No Course + Student pair found", res)};
 
-    const test = await courseController.getCourseAttendance(coursedata, res);
-    res.send(test);
+    const result = await courseController.getCourseAttendance(coursedata, res)
+    res.send(result);
 };
