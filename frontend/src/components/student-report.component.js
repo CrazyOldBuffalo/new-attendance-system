@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import UserDataService from "../services/user.service";
 import { withRouter } from '../common/router';
 import axios from 'axios';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
@@ -9,12 +8,15 @@ class StudentReport extends Component {
     super(props);
 
     this.getUser = this.getUser.bind(this);
+    this.formatData = this.formatData.bind(this);
 
     this.state = {
-      currentUser: {
+      currentStudent: {
         id: null,
-        studentID: ""
+        studentID: "",
+
       },
+      attendanceData: [],
       message: "",
     };
   }
@@ -30,23 +32,40 @@ class StudentReport extends Component {
         this.setState({
           currentStudent: response.data
         });
-        console.log(response.data);
       })
       .catch(e => {
         console.log(e);
       });
     axios.get("http://localhost:3000/student/attendance/" + id).then(response => {
-      console.log(response.data);
+      this.formatData(response.data, id);
     })
     .catch(e => {
       console.log(e);
     });
   }
 
+  formatData(attendanceData, id) {
+    var data = [];
+    attendanceData.modules.forEach(i => {
+        i.classes.forEach(j => {
+          j.register.attendanceList.forEach(k => {
+            data.push(k);
+          });
+        })
+    });
+    const test = data.filter(x => {return x.students.studentID === id});
+    this.setState({
+      attendanceData: test
+    });
+  }
+
+
+
   render() {
-    const { currentStudent } = this.state;
+    const { currentStudent, attendanceData } = this.state;
 
     return (
+
       <div>
         <Navbar/>
         <div className="col-md-5 mx-auto" >
@@ -60,7 +79,6 @@ class StudentReport extends Component {
         {currentStudent ? (
           <div className="edit-form">
             <h4>User</h4>
-            <form>
               <div className="form-group">
                 <label htmlFor="username">Username</label>
                 <input
@@ -72,26 +90,13 @@ class StudentReport extends Component {
                   onChange={this.onChangeUsername}
                 />
               </div>
+              <table></table>
+              {
+                attendanceData.forEach(e => {
+                  console.log(e);
+                })
+              }
               
-            </form>
-
-            <button
-              className="badge badge-danger mr-2"
-              onClick={this.deleteUser}
-              id="deleteBtn"
-
-            >
-              Delete
-            </button>
-
-            <button
-              type="submit"
-              className="badge badge-success"
-              onClick={this.updateUser}
-              id="updateBtn"
-            >
-              Update
-            </button>
             <p>{this.state.message}</p>
           </div>
         ) : (

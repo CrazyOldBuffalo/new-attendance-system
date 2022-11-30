@@ -66,15 +66,20 @@ exports.findStudent = async (req,res) => {
 
 
 exports.getCourseAttendance = async (req, res) => {
-    const attendancedata = await Course.findById(req._id).populate({path: "modules", model: "module", populate: {
-        path: "classes", model: "class", populate: {
-            path: "register", model: "register", populate: {
-                path: "attendanceList", model: "registerItem", populate: {
+    const attendancedata = await Course.findById(req._id)
+    .populate({path: "modules", model: "module",
+     populate: {
+        path: "classes", model: "class", 
+        populate: {
+            path: "register", model: "register", 
+            populate: {
+                path: "attendanceList", model: "registerItem", 
+                populate: {
                     path: "students", model: "student"
-                }
-            }
-        }
-    }})
+                },
+            },
+        },
+    }});
     if(!attendancedata) {errors.error404("failed to get data", res)};
     return attendancedata;    
 };
