@@ -134,13 +134,7 @@ class AdvisorList extends Component {
                 </label>{" "}
                 {currentAdvisor.academicAdvisorID}
               </div>
-              <div>
-                <label>
-                  <strong>Students:</strong>
-                </label>{" "}
-                {currentAdvisor.students}
-              </div>
-
+             
               <Link
                 to={"/advisors/" + currentAdvisor.academicAdvisorID}
                 className="badge badge-warning"
