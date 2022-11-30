@@ -107,7 +107,8 @@ class User extends Component {
   }
 
   getUser(id) {
-    axios.get("http://localhost:3000/student/find/SU123" + id)
+    console.log(id);
+    axios.get("http://localhost:3000/user/" + id)
       .then(response => {
         this.setState({
           currentUser: response.data
