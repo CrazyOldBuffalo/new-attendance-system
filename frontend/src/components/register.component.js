@@ -2,6 +2,12 @@ import React, { Component } from 'react';
 import { withRouter } from '../common/router';
 import axios from 'axios';
 import Navbar from './navbar.component';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import Upgrade from '@mui/icons-material/Upgrade';
+import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 
 class Register extends Component {
   constructor(props) {
@@ -143,22 +149,46 @@ class Register extends Component {
         <Navbar></Navbar>
         <div className="col-md-5 mx-auto" >
           <div className='container-sm' id='paddingContainer'>
-            <h1>Update Register</h1>
+            <h1>Update Register <Upgrade className='icons'/></h1>
           </div>
           {currentRegister ? (
             <div className="edit-form">
-              <h4>Register</h4>
               <form>
+                                
+              <div className="d-flex justify-content-center">
+
+              <div className='padding' style={{padding:"0px 20px 0px"}}>
 
                 <label htmlFor='studentID'>StudentID</label>
-                <input type="text" value={this.state.studentID} placeholder="Enter Student ID" onChange={this.onChangestudentID} name="studentID"></input>
+                <input type="text" value={this.state.studentID} placeholder="Enter Student ID" onChange={this.onChangestudentID} name="studentID" id='studentIDField'></input>
+
+              </div>
+
+              <div className='padding' style={{padding:"0px 20px 0px"}}>
+
                 <label htmlFor='attendanceStatus'>Status</label>
-                <input type="text" value={this.state.attendanceStatus} placeholder="false" onChange={this.onChangeattendanceStatus} name="attendanceStatus"></input>
+                <input type="text" value={this.state.attendanceStatus} placeholder="false" onChange={this.onChangeattendanceStatus} name="attendanceStatus"style={{width:"60px"}}id='attendanceStatusField'></input>
+
+              </div>
+              <div className='padding' style={{padding:"0px 20px 0px"}}>
+
                 <label htmlFor='class1'>Class</label>
-                <input type="text" value={this.state.class1} placeholder="CL123" onChange={this.onChangeClass} name="class1"></input>
-                <button onClick={this.addRegisterItem}>Add</button>
-                <button onClick={this.updateRegisterItem}>Edit</button>
-                <button onClick={this.deleteRegisterItem}>Delete</button>
+                <input type="text" value={this.state.class1} placeholder="CL123" onChange={this.onChangeClass} name="class1" style={{width:"60px"}}id='classIDfield'></input>
+              </div>
+              </div>
+
+                <div className="d-flex justify-content-center">
+                <div className='padding' style={{padding:"10px 20px 10px"}}>
+                  <button onClick={this.addRegisterItem}className="btn btn-outline-success" id='addButton'>Add <AddCircleIcon/></button>
+                  </div>
+                  <div className='padding' style={{padding:"10px 20px 10px"}}>
+                  <button onClick={this.updateRegisterItem}className="btn btn-outline-secondary" id='editButton'>Edit <EditIcon/></button>
+                  </div>
+                  <div className='padding' style={{padding:"10px 20px 10px"}}>
+                  <button onClick={this.deleteRegisterItem}className="btn btn-outline-danger">Delete<DeleteForeverIcon/></button>
+                  </div>
+
+                </div>
               </form>
               <form>
                 <div className="form-group">
@@ -188,7 +218,31 @@ class Register extends Component {
                         currentRegister.attendanceList.map((attendee, index) => (
                           <tr key={index} className={(index === currentIndex)} >
                             <td>{attendee.students.studentID}</td>
-                            <td>{attendee.attended.toString()}</td>
+
+
+
+                            <td>
+                            {(() => {
+                                  if (attendee.attended.toString()=='true'){
+                                      return (
+                                      
+                                       <DoneOutlinedIcon id='attended'></DoneOutlinedIcon> 
+                                      )
+                                  }
+                                  else if(attendee.attended.toString()=='false'){
+                                    return(
+                                        <ClearOutlinedIcon id='notAttended'/>
+                                      )
+                                  }
+              
+                              return null;
+                            })()}
+
+
+                            </td>
+
+
+                            {/* <td>{attendee.attended.toString()}</td> */}
                           </tr>
                         ))
                       }
@@ -199,18 +253,18 @@ class Register extends Component {
               </form>
 
               <button
-                className="badge badge-danger mr-2"
+                className="btn btn-outline-danger"
                 onClick={this.deleteRegisterItem}
               >
-                Delete
+                Delete <DeleteForeverIcon/>
               </button>
 
               <button
                 type="submit"
-                className="badge badge-success"
+                className="btn btn-outline-success"
                 onClick={this.updateRegisterItem}
               >
-                Update
+                Update <Upgrade/>
               </button>
               <p>{this.state.message}</p>
             </div>
@@ -218,6 +272,7 @@ class Register extends Component {
             <div>
               <br />
               <p>Please click on a User...</p>
+              <span id='cyTest' style={{color:"white"}}></span>
             </div>
           )}
         </div>

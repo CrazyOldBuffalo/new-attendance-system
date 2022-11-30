@@ -1,7 +1,7 @@
 
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Routes, Redirect} from 'react-router-dom';
 
 
 import './styles/nav.scss'
@@ -21,10 +21,12 @@ import AdvisorReport from './components/academicadvisor-report.component';
 
 
 class App extends Component {
+  
   render() {
     return (
+      
+      
       <div>
-
       <Router>
 
 
@@ -33,7 +35,7 @@ class App extends Component {
 
         <Route path="/login" element={<LogIn/>} />
         <Route path="createUser" element={<AddUserExternal/>}/>
-        <Route path="/Navbar" element={<Navbar/>}/>
+        <Route exact path="/Navbar" element={<Navbar/>}/>
         <Route path="/users" element={<UsersList/>} />
         <Route path="/add" element={<AddUser/>} />
         <Route path="/users/:id" element={<User/>} />

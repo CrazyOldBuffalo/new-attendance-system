@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 import PersonAddAlt1Icon from '@mui/icons-material/PersonAddAlt1';
 import Alert from '@mui/material/Alert';
+var bcrypt = require("bcryptjs");
 
 
 class AddUserExternal extends Component {
@@ -89,7 +90,7 @@ class AddUserExternal extends Component {
       method: "post", url: "http://localhost:3000/user/create", data:
       {
         username: data.username,
-        password: data.password,
+        password: bcrypt.hashSync(data.password, 8),
         email: data.email,
         telephone: data.telephone,
       }
