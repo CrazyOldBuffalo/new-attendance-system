@@ -154,12 +154,12 @@ async function createUsers() {
 
   const register = new Register({
     dateTime: Date.now(),
-    attendanceList: [regitem1, regitem2, regitem3]
+    attendanceList: [regitem1, regitem3, regitem5]
   });
 
   const register1 = new Register({
     dateTime: Date.now(),
-    attendanceList: [regitem4, regitem5, regitem6]
+    attendanceList: [regitem2, regitem4, regitem6]
   })
 
   register.save(register);
