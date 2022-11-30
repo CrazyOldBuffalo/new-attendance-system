@@ -47,10 +47,9 @@ exports.findAll = (req, res) => {
 };
 
 exports.returnStudentAttendanceData = async(req, res) => {
-    const studentdata = StudentController.extendsStudentFind(req, res);
-    const studentRegisterData = RegisterItem.find({studentid: studentdata._id});
+    const studentRegisterData = await RegisterItem.find({studentid: req.params.id});
     if(!studentRegisterData) {return err => errors.error404(err,res)}
     else {
-        return studentRegisterData;
+        res.send(studentRegisterData);
     };
 };

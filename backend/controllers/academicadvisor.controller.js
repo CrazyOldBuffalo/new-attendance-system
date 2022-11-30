@@ -41,7 +41,7 @@ exports.findAllAdvisors = (req,res) => {
 };
 
 exports.findOneAdvisor = (req, res) => {
-    AcademicAdvisor.findOne({ academicAdvisorID: req.params.id }).populate({path: "userRef", model: "user"}).then(data => {
+    AcademicAdvisor.findOne({ academicAdvisorID: req.params.id }).populate({path: "userRef", model: "user"}).populate({path: "students", model: "student"}).then(data => {
         if(!data) {return err => errors.error404(err, res)}
         else {
             res.send(data);
