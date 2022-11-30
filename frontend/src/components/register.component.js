@@ -188,7 +188,6 @@ class Register extends Component {
                         currentRegister.attendanceList.map((attendee, index) => (
                           <tr key={index} className={(index === currentIndex)} >
                             <td>{attendee.students.studentID}</td>
-                            {console.log(attendee.attended)}
                             <td>{attendee.attended.toString()}</td>
                           </tr>
                         ))
