@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import advisorService from '../services/advisor.service';
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Navbar from './navbar.component';
 
 class AdvisorList extends Component {

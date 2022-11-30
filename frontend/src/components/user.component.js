@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import UserDataService from "../services/user.service";
 import { withRouter } from '../common/router';
 import axios from 'axios';
@@ -107,7 +107,7 @@ class User extends Component {
   }
 
   getUser(id) {
-    axios.get("http://localhost:3000/user/" + id)
+    axios.get("http://localhost:3000/student/find/SU123" + id)
       .then(response => {
         this.setState({
           currentUser: response.data
@@ -182,7 +182,7 @@ class User extends Component {
         <Navbar/>
         <div className="col-md-5 mx-auto" >
           <div className='container-sm' id='paddingContainer'>
-            <h1>Edit Student 
+            <h1>Edit User 
             <ManageAccountsIcon className="icons">
             </ManageAccountsIcon> 
             </h1>

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
+import { Link} from 'react-router-dom';
 //import './App.css';
 
 import '../styles/nav.scss'
@@ -9,8 +9,6 @@ import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import ManageSearchIcon from '@mui/icons-material/ManageSearch';
-import AppRegistrationIcon from '@mui/icons-material/AppRegistration';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
@@ -29,7 +27,7 @@ class Navbar extends Component {
           <div className="navbar-nav mr-auto">
             <li className="nav-item" id="searchStudent">
               <Link to={"/Users"} className="nav-link">
-                Search Student
+                Search User
                 <PersonSearchIcon width="30" height="30" className="icons" style={{ color: "white" }}></PersonSearchIcon>
 
               </Link>
@@ -41,20 +39,13 @@ class Navbar extends Component {
 
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/users/:id"} className="nav-link">
-                Edit Student
-                <ManageAccountsIcon width="30" height="30" className="icons" style={{ color: "white" }}></ManageAccountsIcon>
 
+            <li className="nav-item">
+              <Link to={"/student-list"} className="nav-link">
+                Student List
               </Link>
             </li>
-            <li className="nav-item">
-              <Link to={"/register/:id"} className="nav-link">
-                Edit Register
-                <AppRegistrationIcon width="30" height="30" className="icons" style={{ color: "white" }}></AppRegistrationIcon>
 
-              </Link>
-            </li>
             <li className="nav-item" id="addUser">
               <Link to={"/add"} className="nav-link">
                 Add User
@@ -75,6 +66,7 @@ class Navbar extends Component {
                 <LogoutIcon className='d-inline-block align-text-top'style={{ color: "white" }}></LogoutIcon>
               </Link>
             </li>
+
 
 
 

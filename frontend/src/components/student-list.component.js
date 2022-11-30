@@ -150,9 +150,10 @@ class StudentList extends Component {
                 {currentStudent.studentID}
               </div>
         
-
+              {console.log(currentStudent.studentID)}
               <Link
-                to={"/users/report/" + currentStudent.studentID}
+                
+                to={"/student/report/" + currentStudent.studentID}
                 className="badge badge-warning"
               >
                 Generate Report

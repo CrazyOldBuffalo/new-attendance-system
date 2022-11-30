@@ -1,17 +1,8 @@
 import React, { Component } from 'react';
 import UserDataService from "../services/user.service";
 import '../styles/login.scss'
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
-import Navbar from '../components/navbar.component.js';
-
-
-import User from '../components/user.component';
-import AddUser from '../components/add-user.component';
-import UsersList from '../components/user.component'
-
-import RegisterList from '../components/register-list.component';
+import { Link } from 'react-router-dom';
 import axios from 'axios';
-import PersonSearchIcon from '@mui/icons-material/PersonSearch';
 import LoginIcon from '@mui/icons-material/Login';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
@@ -101,8 +92,6 @@ class LogIn extends Component {
       
 
     render(){
-   const { searchUsername, users, currentUser, currentIndex } = this.state;
- 
 
     return (
         <div className="submit-form">
@@ -147,7 +136,7 @@ class LogIn extends Component {
                 <div className="d-flex justify-content-between">
                 <div className="p-2" style={{paddingTop:"20px"}}>
                     <Link to={"/createUser"} className="navbar-brand" id='createAcc'>
-                    <button class="btn btn-outline-success"  id="logLink"role="button"> Create Account <AddCircleOutlineIcon/></button>
+                    <button className="btn btn-outline-success"  id="logLink"> Create Account <AddCircleOutlineIcon/></button>
                     </Link>
 
                   </div>
@@ -156,7 +145,7 @@ class LogIn extends Component {
                       
                     
                     <Link to={"/Navbar"} className="navbar-brand" id='logIn'>
-                    <button class="btn btn-success"  id="logLink"role="button"> Log In <LoginIcon></LoginIcon></button>
+                    <button className="btn btn-success"  id="logLink"> Log In <LoginIcon></LoginIcon></button>
                     </Link>
                    
                 </div>

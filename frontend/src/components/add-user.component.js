@@ -100,7 +100,7 @@ class AddUser extends Component {
             canEditCourse: response.data.canEditCourse,
             message: "The User was created successfully!"
         });
-        if(response.status=='200'){
+        if(response.status ==='200'){
           console.log('great success')
           document.getElementById('responseMessageSuccess').style.visibility='visible'
           document.getElementById('responseMessageError').style.visibility='hidden'

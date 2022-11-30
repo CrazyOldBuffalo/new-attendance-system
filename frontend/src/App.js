@@ -1,8 +1,8 @@
-import logo from './logo.svg';
+
 import React, { Component } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {BrowserRouter as Router, Route, Link, Routes} from 'react-router-dom';
-//import './App.css';
+import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+
 
 import './styles/nav.scss'
 import User from './components/user.component';
@@ -39,6 +39,7 @@ class App extends Component {
         <Route path="/register-list" element={<RegisterList/>} />
         <Route path="/advisor-list" element={<AdvisorList/>} />
         <Route path="/student-list" element={<StudentList/>}/>
+        <Route path="/student/report/:id"  element={<StudentReport/>}/>
       </Routes>
     </Router>
     </div>

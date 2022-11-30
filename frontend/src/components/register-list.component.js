@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import UserDataService from "../services/register.service";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import axios from 'axios';
 import Navbar from './navbar.component';
 
