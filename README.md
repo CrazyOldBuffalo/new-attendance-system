@@ -40,3 +40,10 @@ or run mongoDB from the terminal ensuring it is on `localhost:27017`
 5. wait for the test to open in you preferred browser and complete.
 
 ***
+## For populating the DB
+
+1. Uncomment line 156 in `app.js` in the `backend`
+2. Run once and the db should be populated.
+3. If an issue occurs make sure to comment this line out before re-running the application
+
+***
