@@ -3,6 +3,7 @@ import advisorService from '../services/advisor.service';
 import { Link } from "react-router-dom";
 import Navbar from './navbar.component';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import EditIcon from '@mui/icons-material/Edit';
 
 class AdvisorList extends Component {
     constructor(props) {
@@ -139,7 +140,8 @@ class AdvisorList extends Component {
                 to={"/advisors/" + currentAdvisor.academicAdvisorID}
                 className="badge badge-warning"
               >
-                Edit
+                  <button class="btn btn-outline-secondary">Edit <EditIcon/> </button>
+
               </Link>
             </div>
           ) : (

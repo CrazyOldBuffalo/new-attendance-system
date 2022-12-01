@@ -95,6 +95,12 @@ class StudentReport extends Component {
               {
                 attendanceData.map(item => {
                   return <li>{item.attended.toString()}</li>
+
+                  
+
+
+
+
                 })
               }
             <p>{this.state.message}</p>

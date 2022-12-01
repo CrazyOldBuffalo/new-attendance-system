@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { withRouter } from '../common/router';
 import axios from 'axios';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import DoneOutlinedIcon from '@mui/icons-material/DoneOutlined';
+import ClearOutlinedIcon from '@mui/icons-material/ClearOutlined';
 import Navbar from './navbar.component';
 class AdvisorReport extends Component {
   constructor(props) {
@@ -54,18 +56,39 @@ class AdvisorReport extends Component {
       <div>
         <Navbar/>
 
-        <div>
+        <div style={{textAlign:"center"}}>
           <table>
             <thead>
               <tr>
-                <th>x</th>
+                <th></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{alignItems:"center"}}>
+              <strong>Previous Attendance Indicators</strong>
             {
             data.map((data, index) => (
               <tr key={index} className={index === currentIndex}>
-                <td>{data.attended.toString()}</td>
+
+                <td>
+                {(() => {
+                      if (data.attended.toString()=='true'){
+                          return (
+                          
+                            <DoneOutlinedIcon id='attended'></DoneOutlinedIcon> 
+                          )
+                      }
+                      else if(data.attended.toString()=='false'){
+                        return(
+                            <ClearOutlinedIcon id='notAttended'/>
+                          )
+                      }
+  
+                  return null;
+                })()}
+
+
+                </td>
+                
               </tr>
             ))
 
@@ -73,7 +96,7 @@ class AdvisorReport extends Component {
           </tbody>
           </table>
           {
-            <p>Overall Attendance Indicator: {this.findTrue()} %</p>
+            <h1>Overall Attendance Indicator:<strong> {this.findTrue()} %</strong></h1>
           }          
         </div>
       </div>

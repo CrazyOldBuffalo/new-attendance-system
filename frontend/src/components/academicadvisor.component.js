@@ -5,6 +5,9 @@ import axios from 'axios';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import Navbar from './navbar.component';
 import { Link } from "react-router-dom";
+import UpgradeIcon from '@mui/icons-material/Upgrade';
+import AssessmentIcon from '@mui/icons-material/Assessment';
+
 class AcademicAdvisor extends Component {
   constructor(props) {
     super(props);
@@ -137,8 +140,10 @@ class AcademicAdvisor extends Component {
                     >
                     </input>
                     </div>
-                    <Link to={"/advisor-report/" + this.state.studentID} className="badge badge-warning">
-                      report
+                    <Link to={"/advisor-report/" + this.state.studentID}>
+
+                    <button class="btn btn-outline-success">Report <AssessmentIcon/> </button>
+
                     </Link>
                 </form>
                 <div className="form-group">
@@ -171,10 +176,11 @@ class AcademicAdvisor extends Component {
 
               <button
                 type="submit"
-                className="badge badge-success"
+                className="btn btn-outline-success"
                 onClick={this.updateRegisterItem}
               >
-                Update
+
+                Update<UpgradeIcon/>
               </button>
               <p>{this.state.message}</p>
             </div>
